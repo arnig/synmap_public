@@ -1,1 +1,6 @@
 language: csharp
+mono: none
+dotnet: latest
+dist: trusty
+script:
+ - dotnet restore
