@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Surveys";
+}
+
+<h2>@ViewBag.Message</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <h3>Alphabets</h3>
+            <p>
+                Connect alphabetic characters to colors.
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <h3>Graphemes</h3>
+            <p>
+                Assign colors to graphemes.
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index","Survey")">Click here &raquo;</a></p>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <h3>Sounds</h3>
+            <p>
+                Choose colors that correspond to the sounds you hear.
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index","Survey")">Click here &raquo;</a></p>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h2>Create your own (Users only)</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Alphabets</h3>
+            <p>
+                Connect alphabetic characters to colors.
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h3>Graphemes</h3>
+            <p>
+                Assign colors to graphemes.
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index","Survey")">Click here &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h3>Sounds</h3>
+            <p>
+                Choose colors that correspond to the sounds you hear.
+            </p>
+            <p><a class="btn btn-default" href="@Url.Action("Index","Survey")">Click here &raquo;</a></p>
+        </div>
+    </div>
+</div>
