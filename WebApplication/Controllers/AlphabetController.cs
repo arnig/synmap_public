@@ -14,6 +14,11 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        public ActionResult Participate(int id)
+        {
+            return View();
+        }
+
         // GET: Alphabet/Details/5
         public ActionResult Details(int id)
         {
