@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebApplication.Models.Entities;
 
 namespace WebApplication.Models
 {
@@ -29,5 +30,7 @@ namespace WebApplication.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Alphabet> Alphabets { get; set; }
     }
 }
