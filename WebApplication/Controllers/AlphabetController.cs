@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication.Services;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
     public class AlphabetController : Controller
     {
+        private AlphabetService service = new AlphabetService();
         // GET: Alphabet
         public ActionResult Index()
         {
-            return View();
+            AlphabetsViewModel alphabets = service.getAlphabets();
+
+            return View(alphabets);
         }
 
         public ActionResult Participate(int id)

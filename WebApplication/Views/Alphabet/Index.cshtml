@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApplication.Models.AlphabetsViewModel
 @{
     ViewBag.Title = "Alphabets";
 }
@@ -7,32 +7,16 @@
 
 <div class="container-fluid">
     <div class="row">
+        @foreach (var alphabet in Model.alphabets)
+        {
+            <div class="col-md-4 col-sm-12">
+                <h3>@alphabet.Description</h3>
+                <p>@alphabet.Id</p>
+                <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
+            </div>
+        }
         <div class="col-md-4 col-sm-12">
             <h3>Danish</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Faroese</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Finnish</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Greenlandic</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Icelandic</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Norwegian</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Swedish</h3>
             <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
         </div>
     </div>
