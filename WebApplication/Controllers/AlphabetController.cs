@@ -21,7 +21,9 @@ namespace WebApplication.Controllers
 
         public ActionResult Participate(int id)
         {
-            return View();
+            AlphabetViewModel alphabet = service.getAlphabet(id);
+
+            return View(alphabet);
         }
 
         // GET: Alphabet/Details/5

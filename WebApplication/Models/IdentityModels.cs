@@ -32,5 +32,6 @@ namespace WebApplication.Models
         }
 
         public DbSet<Alphabet> Alphabets { get; set; }
+        public DbSet<AsciiAlphabet> AsciiAlphabets { get; set; }
     }
 }

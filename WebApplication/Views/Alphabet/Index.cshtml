@@ -7,11 +7,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        @foreach (var alphabet in Model.alphabetList)
+        @foreach (var alphabet in Model.alphabets)
         {
             <div class="col-md-4 col-sm-12">
                 <h3>@alphabet.Description</h3>
-                <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here @alphabet.Id &raquo;</a></p>
+                <p><a class="btn btn-default" href="@Url.Action("Participate","Alphabet", new { id = alphabet.Id })">Click here &raquo;</a></p>
             </div>
         }
     </div>

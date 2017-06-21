@@ -8,13 +8,12 @@ namespace WebApplication.Models
 {
     public class AlphabetsViewModel
     {
-        public List<AlphabetDemo> alphabets { get; set; }
-        public List<Alphabet> alphabetList { get; set; }
+        public List<Alphabet> alphabets { get; set; }
     }
 
-    public class AlphabetDemo
+    public class AlphabetViewModel
     {
-        public int Id { get; set; }
-        public string Description { get; set; }
+        public String Description { get; set; }
+        public List<int> Ascii { get; set; }
     }
 }

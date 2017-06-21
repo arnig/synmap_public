@@ -1,0 +1,11 @@
+﻿@model WebApplication.Models.AlphabetViewModel
+@{
+    ViewBag.Title = "Participate";
+}
+
+<h2>@Model.Description</h2>
+
+@foreach(var x in Model.Ascii)
+{
+    <p>@x -> &#@x;</p>
+}

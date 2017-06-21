@@ -18,14 +18,22 @@ namespace WebApplication.Services
 
         public AlphabetsViewModel getAlphabets()
         {
-            List<AlphabetDemo> lis = new List<AlphabetDemo>();
-
-            lis.Add(new AlphabetDemo { Id = 1337, Description = "Brolandic" });
-
             List<Alphabet> alphabetList = (from ab in db.Alphabets
                                 select ab).ToList();
 
-            return new AlphabetsViewModel { alphabets = lis, alphabetList = alphabetList };
+            return new AlphabetsViewModel { alphabets = alphabetList };
+        }
+
+        public AlphabetViewModel getAlphabet(int id)
+        {
+            string description = (from ab in db.Alphabets
+                                  where ab.Id == id
+                                  select ab.Description).SingleOrDefault();
+            List<int> ascii = (from x in db.AsciiAlphabets
+                               where x.AlphabetId == id
+                               select x.Ascii).ToList();
+
+            return new AlphabetViewModel { Ascii = ascii, Description = description };
         }
     }
 }

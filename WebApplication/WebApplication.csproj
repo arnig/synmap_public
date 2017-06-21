@@ -340,6 +340,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Survey\Index.cshtml" />
     <Content Include="Views\Alphabet\Index.cshtml" />
+    <Content Include="Views\Alphabet\Participate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

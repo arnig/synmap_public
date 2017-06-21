@@ -11,7 +11,8 @@ namespace WebApplication.Models.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +20,8 @@ namespace WebApplication.Models.Entities
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
         }
-    
+
+        [Key]
         public string Id { get; set; }
         public string Name { get; set; }
     
