@@ -26,14 +26,14 @@ namespace WebApplication.Services
 
         public AlphabetViewModel getAlphabet(int id)
         {
-            string description = (from ab in db.Alphabets
+            Alphabet alphabet= (from ab in db.Alphabets
                                   where ab.Id == id
-                                  select ab.Description).SingleOrDefault();
+                                  select ab).SingleOrDefault();
             List<int> ascii = (from x in db.AsciiAlphabets
                                where x.AlphabetId == id
                                select x.Ascii).ToList();
 
-            return new AlphabetViewModel { Ascii = ascii, Description = description };
+            return new AlphabetViewModel { Ascii = ascii, Alphabet = alphabet};
         }
     }
 }

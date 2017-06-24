@@ -3,9 +3,26 @@
     ViewBag.Title = "Participate";
 }
 
-<h2>@Model.Description</h2>
+<h2>@Model.Alphabet.Description</h2>
 
-@foreach(var x in Model.Ascii)
-{
-    <p>@x -> &#@x;</p>
-}
+<div id="characterColor">
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div id="colorPicker">
+                    <div class="wheel" id="colorWheelDemo">
+
+                    </div>
+                    <script src="~/Scripts/iro.min.js"></script>
+                    <script src="~/Scripts/AlphabetSurvey.js"></script>
+                </div>
+            </div>
+        <div class="col-md-6 col-sm-12" id="character">
+            <div id="char">
+                <p>&#@Model.Ascii.First();</p>
+            </div>
+        </div>
+    </div>
+</div>

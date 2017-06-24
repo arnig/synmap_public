@@ -13,7 +13,7 @@ namespace WebApplication.Models
 
     public class AlphabetViewModel
     {
-        public String Description { get; set; }
+        public Alphabet Alphabet{ get; set; }
         public List<int> Ascii { get; set; }
     }
 }

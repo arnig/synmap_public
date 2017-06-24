@@ -1,0 +1,35 @@
+﻿#characterColor {
+}
+
+#colorPicker {
+}
+
+#character {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    height: 325px;
+}
+
+#char {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#character p {
+    font-size:150px;
+}
+
+#countryList {
+    text-align: center;
+}
+
+#countryList img {
+    width: inherit;
+}
+
+#countryList h3 {
+    margin-top: inherit;
+}
