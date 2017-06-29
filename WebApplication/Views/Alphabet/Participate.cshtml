@@ -5,10 +5,8 @@
 
 <h2>@Model.Alphabet.Description</h2>
 
-<div id="characterColor">
-</div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="">
     <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div id="colorPicker">
@@ -21,8 +19,15 @@
             </div>
         <div class="col-md-6 col-sm-12" id="character">
             <div id="char">
-                <p>&#@Model.Ascii.First();</p>
+                @foreach(var c in Model.Ascii)
+                {
+                    <p hidden="hidden" title="@Model.Ascii.IndexOf(c)">&#@c;</p>
+                }
             </div>
         </div>
     </div>
+</div>
+
+<div class="center">
+    <button class="btn-success" id="btnPostResult">Press me!</button>
 </div>

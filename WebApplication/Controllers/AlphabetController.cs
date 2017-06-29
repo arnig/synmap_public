@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication.Services;
 using WebApplication.Models;
+using System.Web.Services;
 
 namespace WebApplication.Controllers
 {
@@ -25,7 +26,14 @@ namespace WebApplication.Controllers
 
             return View(alphabet);
         }
+        
+        [HttpPost]
+        public ActionResult GetCharacters(FormCollection collection)
+        {
+            return RedirectToAction("Participate", "Alphabet", new { id = 1 });
+        }
 
+#region Create and edit functions
         // GET: Alphabet/Details/5
         public ActionResult Details(int id)
         {
@@ -97,5 +105,6 @@ namespace WebApplication.Controllers
                 return View();
             }
         }
+#endregion
     }
 }

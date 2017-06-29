@@ -24,6 +24,7 @@
 
 #countryList {
     text-align: center;
+    padding-top: 20px;
 }
 
 #countryList img {
@@ -32,4 +33,9 @@
 
 #countryList h3 {
     margin-top: inherit;
+}
+
+.flagImage {
+    height:50px;
+    width: 70px;
 }

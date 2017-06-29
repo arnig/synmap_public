@@ -3,16 +3,17 @@
     ViewBag.Title = "Alphabets";
 }
 
-<h2>Nordic Alphabets</h2>
+<div class="container-fluid center">
 
-<div class="container-fluid">
+    <h2>Nordic Alphabets</h2>
+
     <div class="row" id="countryList">
         @foreach (var alphabet in Model.alphabets)
         {
             var imgPath = "/Images/Flags/" + @alphabet.Id + ".svg"; 
             
             <div class="col-md-4 col-sm-12">
-                <img src="@imgPath"></img>
+                <img src="@imgPath" class="flagImage"></img>
                 <h3>@alphabet.Description</h3>
                 <p><a class="btn btn-default" href="@Url.Action("Participate","Alphabet", new { id = alphabet.Id })">Click here &raquo;</a></p>
             </div>
@@ -22,9 +23,10 @@
 
 <hr />
 
-<h2>Asian Alphabets</h2>
+<div class="container-fluid center">
 
-<div class="container-fluid">
+    <h2>Asian Alphabets</h2>
+
     <div class="row">
         <div class="col-md-4 col-sm-12">
             <h3>Danish</h3>

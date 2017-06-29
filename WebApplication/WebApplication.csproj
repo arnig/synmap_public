@@ -248,6 +248,7 @@
     <Compile Include="Models\Entities\Survey.cs">
       <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,6 +258,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Services\AlphabetService.cs" />
+    <Compile Include="Services\HomeService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +271,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\Flags\2.svg" />
     <Content Include="Images\Flags\1.svg" />
+    <Content Include="Images\Flags\3.svg" />
+    <Content Include="Images\Flags\4.svg" />
+    <Content Include="Images\Flags\5.svg" />
     <Content Include="Models\Entities\Entity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entity.edmx</DependentUpon>
@@ -312,6 +317,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\AlphabetSurvey.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

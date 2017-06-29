@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication.Models;
+using WebApplication.Services;
 
 namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private HomeService service = new HomeService();
+
         public ActionResult Index()
         {
-            return View();
+            HomeViewModel viewModel = service.GetViewModel();
+
+            return View(viewModel);
         }
 
         public ActionResult About()
