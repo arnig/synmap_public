@@ -16,4 +16,19 @@ namespace WebApplication.Models
         public Alphabet Alphabet{ get; set; }
         public List<int> Ascii { get; set; }
     }
+
+    public class AlphabetResultViewModel
+    {
+        public List<AsciiResults> results { get; set; }
+        public string userId { get; set; }
+    }
+
+    public class AsciiResults
+    {
+        public int Ascii { get; set; }
+        public int R { get; set; }
+        public int G { get; set; }
+        public int B { get; set; }
+        public int A { get; set; }
+    }
 }

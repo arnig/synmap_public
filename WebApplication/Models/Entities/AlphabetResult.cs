@@ -27,9 +27,6 @@ namespace WebApplication.Models.Entities
         public Nullable<int> AlphabetId { get; set; }
         public int SurveyId { get; set; }
     
-        public virtual Alphabet Alphabet { get; set; }
-        public virtual Survey Survey { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AsciiResult> AsciiResults { get; set; }
     }

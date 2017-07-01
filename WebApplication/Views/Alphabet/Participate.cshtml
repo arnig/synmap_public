@@ -21,7 +21,7 @@
             <div id="char">
                 @foreach(var c in Model.Ascii)
                 {
-                    <p hidden="hidden" title="@Model.Ascii.IndexOf(c)">&#@c;</p>
+                    <p title="@c" hidden="hidden">&#@c;</p>
                 }
             </div>
         </div>

@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var keyValues = [];
+
+    //TODO: Add attemptNumber
 
     $('#btnPostResult').on('click', function () {
         var htmlValues = $('#char').children();
@@ -9,46 +12,52 @@
         $.each(htmlValues, function (index, value) {
             var attr = $(this).attr('hidden');
 
-
             // For some browsers, `attr` is undefined; for others,
             // `attr` is false.  Check for both.
-            if (typeof attr !== typeof undefined && attr !== false) {
-                console.log('is hidden');
-            }
-            else {
+            if (typeof attr === typeof undefined || attr === false) {
                 charIndex = index;
                 allHidden = false;
             }
         });
-        if (allHidden)
-        {
+        if (allHidden) {
             htmlValues.first().removeAttr('hidden');
             return;
         }
 
-        // Some character is showing
+
+        // Hide current char and show next one.
+        // Grab value of current character and color picker.
         $.each(htmlValues, function (index, value) {
-            var attr = $(this).attr('hidden');
 
             if (index === charIndex) {
+                var ascii = parseInt( $(this).attr('title') );
+                var colorValue = colorWheel.color.rgb;
+
+                var pair = { Ascii: ascii, R: colorValue.r, G: colorValue.g, B: colorValue.b };
+
+                keyValues.push(pair);
+
                 $(this).attr('hidden', true);
             }
-            if (index === charIndex + 1) {
+            else if (index === charIndex + 1) {
                 $(this).attr('hidden', false);
             }
         });
-        
-        
-        /*$.ajax({
-                url: '/Alphabet/GetCharacters',
-                data: values.serialize(),
+
+
+        // Reached the end of alphabet
+        if (charIndex === htmlValues.length - 1) {
+            console.log(JSON.stringify( keyValues ));
+            $.ajax({
+                url: '/Alphabet/AlphabetResult',
+                data: { 'result.KeyValues': keyValues },
                 method: 'POST',
                 success: function (responseData) {
                 }
-        });*/
+            });
+        }
 
-        
     });
 
-})
+});
 

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebApplication.Services;
 using WebApplication.Models;
 using System.Web.Services;
+using Microsoft.AspNet.Identity;
 
 namespace WebApplication.Controllers
 {
@@ -20,16 +21,27 @@ namespace WebApplication.Controllers
             return View(alphabets);
         }
 
-        public ActionResult Participate(int id)
+        public ActionResult Participate(int? id)
         {
-            AlphabetViewModel alphabet = service.getAlphabet(id);
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Alphabet");
+            }
+
+            service.PostSurvey();
+            
+            service.PostAlphabetResult(id.Value, User.Identity.GetUserId());
+
+            AlphabetViewModel alphabet = service.getAlphabet(id.Value);
 
             return View(alphabet);
         }
         
         [HttpPost]
-        public ActionResult GetCharacters(FormCollection collection)
+        public ActionResult AlphabetResult(AlphabetResultViewModel viewModel) //TODO: convert into 'AsciiResult'
         {
+
             return RedirectToAction("Participate", "Alphabet", new { id = 1 });
         }
 

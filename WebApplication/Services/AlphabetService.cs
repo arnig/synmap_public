@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using WebApplication.Models;
 using WebApplication.Models.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace WebApplication.Services
 {
@@ -34,6 +35,35 @@ namespace WebApplication.Services
                                select x.Ascii).ToList();
 
             return new AlphabetViewModel { Ascii = ascii, Alphabet = alphabet};
+        }
+
+        public bool PostAlphabetResult(int value, string userId)
+        {
+            AlphabetResult alphabetResult = new AlphabetResult();
+
+            //TODO: Select latest survey from user.
+            int surveyId = (from sv in db.Surveys
+                            orderby sv.Id descending
+                            select sv.Id).FirstOrDefault();
+
+            alphabetResult.SurveyId = surveyId;
+            alphabetResult.UserId = userId;
+            alphabetResult.AlphabetId = value;
+            
+            db.AlphabetResults.Add(alphabetResult);
+            //TODO: Attach userId to survey and remove from AlphabetResult
+
+            return Convert.ToBoolean(db.SaveChanges());
+        }
+
+        public bool PostSurvey()
+        {
+            Survey survey = new Survey() { Type = 0 };
+
+            db.Surveys.Add(survey);
+            //TODO: Attach userId to survey and remove from AlphabetResult
+
+            return Convert.ToBoolean(db.SaveChanges());
         }
     }
 }

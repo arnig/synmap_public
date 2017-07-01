@@ -33,5 +33,7 @@ namespace WebApplication.Models
 
         public DbSet<Alphabet> Alphabets { get; set; }
         public DbSet<AsciiAlphabet> AsciiAlphabets { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<AlphabetResult> AlphabetResults { get; set; }
     }
 }
