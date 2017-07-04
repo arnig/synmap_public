@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     var keyValues = [];
+    var attemptNumber = 1;
 
     //TODO: Add attemptNumber
 
@@ -47,14 +48,22 @@
 
         // Reached the end of alphabet
         if (charIndex === htmlValues.length - 1) {
-            console.log(JSON.stringify( keyValues ));
             $.ajax({
                 url: '/Alphabet/AlphabetResult',
-                data: { 'result.KeyValues': keyValues },
+                data: {
+                    'viewModel': { 'results': keyValues, 'attemptNumber': attemptNumber }
+                },
                 method: 'POST',
                 success: function (responseData) {
+                    keyValues.length = 0;
                 }
             });
+
+            attemptNumber++;
+        }
+        
+        if (attemptNumber > 3) {
+            window.location = '../../';
         }
 
     });

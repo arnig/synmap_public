@@ -41,8 +41,10 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult AlphabetResult(AlphabetResultViewModel viewModel) //TODO: convert into 'AsciiResult'
         {
+            int abResultId = service.GetLatestAlphabetResult();
+            service.PostAsciiResults(viewModel, abResultId);
 
-            return RedirectToAction("Participate", "Alphabet", new { id = 1 });
+            return RedirectToAction("Index", "Alphabet");
         }
 
 #region Create and edit functions

@@ -37,6 +37,35 @@ namespace WebApplication.Services
             return new AlphabetViewModel { Ascii = ascii, Alphabet = alphabet};
         }
 
+        public int GetLatestAlphabetResult()
+        {
+            int abResultId = (from abr in db.AlphabetResults
+                            orderby abr.Id descending
+                            select abr.Id).FirstOrDefault();
+
+            return abResultId;
+        }
+
+        public bool PostAsciiResults(AlphabetResultViewModel viewModel, int alphabetResultId)
+        {
+            foreach (var result in viewModel.results)
+            {
+                AsciiResult temp = new AsciiResult();
+
+                temp.AttemptNumber = viewModel.attemptNumber;
+                temp.Ascii = result.Ascii;
+                temp.AlphabetResultId = alphabetResultId;
+                temp.R = result.R;
+                temp.G = result.G;
+                temp.B = result.B;
+                temp.A = result.A;
+
+                db.AsciiResults.Add(temp);
+            }
+
+            return Convert.ToBoolean(db.SaveChanges());
+        }
+
         public bool PostAlphabetResult(int value, string userId)
         {
             AlphabetResult alphabetResult = new AlphabetResult();

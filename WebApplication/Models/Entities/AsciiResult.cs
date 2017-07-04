@@ -12,12 +12,15 @@ namespace WebApplication.Models.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class AsciiResult
     {
-        [Key]
+        [Column(Order = 0), Key]
         public int AttemptNumber { get; set; }
+        [Column(Order = 1), Key]
         public int Ascii { get; set; }
+        [Column(Order = 2), Key]
         public int AlphabetResultId { get; set; }
         public int R { get; set; }
         public int G { get; set; }

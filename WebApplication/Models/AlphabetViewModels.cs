@@ -21,6 +21,7 @@ namespace WebApplication.Models
     {
         public List<AsciiResults> results { get; set; }
         public string userId { get; set; }
+        public int attemptNumber { get; set; }
     }
 
     public class AsciiResults
