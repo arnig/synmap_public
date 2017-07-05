@@ -284,6 +284,7 @@
       <DependentUpon>Entity.edmx</DependentUpon>
       <LastGenOutput>Entity.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\AlphabetSurvey.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
