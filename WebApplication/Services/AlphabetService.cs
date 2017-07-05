@@ -37,13 +37,34 @@ namespace WebApplication.Services
             return new AlphabetViewModel { Ascii = ascii, Alphabet = alphabet};
         }
 
-        public int GetLatestAlphabetResult()
+        public int GetLatestAlphabetResultBySession(string sessionId)
         {
+            int surveyId = (from surveys in db.Surveys
+                            where surveys.SessionId == sessionId
+                            orderby surveys.DateStarted descending
+                            select surveys.Id).FirstOrDefault();
+
             int abResultId = (from abr in db.AlphabetResults
+                            where abr.SurveyId == surveyId
                             orderby abr.Id descending
                             select abr.Id).FirstOrDefault();
 
             return abResultId;
+        }
+
+        public bool FinishSurveyByAlphabetResult(int abResultId)
+        {
+            int surveyId = (from abr in db.AlphabetResults
+                            where abr.Id == abResultId
+                            select abr.SurveyId).SingleOrDefault();
+
+            Survey survey = (from sv in db.Surveys
+                             where sv.Id == surveyId
+                             select sv).SingleOrDefault();
+
+            survey.DateFinished = DateTime.Now;
+
+            return Convert.ToBoolean(db.SaveChanges());
         }
 
         public bool PostAsciiResults(AlphabetResultViewModel viewModel, int alphabetResultId)
@@ -66,13 +87,14 @@ namespace WebApplication.Services
             return Convert.ToBoolean(db.SaveChanges());
         }
 
-        public bool PostAlphabetResult(int value, string userId)
+        public bool PostAlphabetResult(int value, string userId, string sessionId)
         {
             AlphabetResult alphabetResult = new AlphabetResult();
 
-            //TODO: Select latest survey from user.
+            //TODO: Select latest survey by session.
             int surveyId = (from sv in db.Surveys
-                            orderby sv.Id descending
+                            where sv.SessionId == sessionId
+                            orderby sv.DateStarted descending
                             select sv.Id).FirstOrDefault();
 
             alphabetResult.SurveyId = surveyId;
@@ -85,9 +107,9 @@ namespace WebApplication.Services
             return Convert.ToBoolean(db.SaveChanges());
         }
 
-        public bool PostSurvey()
+        public bool PostSurvey(string userId, string sessionId)
         {
-            Survey survey = new Survey() { Type = 0 };
+            Survey survey = new Survey() { Type = 0, UserId = userId, SessionId = sessionId, DateStarted = DateTime.Now };
 
             db.Surveys.Add(survey);
             //TODO: Attach userId to survey and remove from AlphabetResult

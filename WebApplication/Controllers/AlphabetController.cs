@@ -23,15 +23,18 @@ namespace WebApplication.Controllers
 
         public ActionResult Participate(int? id)
         {
-
             if (id == null)
             {
                 return RedirectToAction("Index", "Alphabet");
             }
 
-            service.PostSurvey();
+
+            string currentUser = User.Identity.GetUserId();
+            string currentSession = Session.SessionID;
+
+            service.PostSurvey(currentUser, currentSession);
             
-            service.PostAlphabetResult(id.Value, User.Identity.GetUserId());
+            service.PostAlphabetResult(id.Value, currentUser, currentSession);
 
             AlphabetViewModel alphabet = service.getAlphabet(id.Value);
 
@@ -39,86 +42,21 @@ namespace WebApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult AlphabetResult(AlphabetResultViewModel viewModel) //TODO: convert into 'AsciiResult'
+        public ActionResult AlphabetResult(AlphabetResultViewModel viewModel)
         {
-            int abResultId = service.GetLatestAlphabetResult();
+            string currentSession = this.Session.SessionID;
+
+            int abResultId = service.GetLatestAlphabetResultBySession(currentSession);
+
             service.PostAsciiResults(viewModel, abResultId);
+
+            //TODO: Make attemptNumber global or configurable
+            if (viewModel.attemptNumber > 2)
+            {
+                service.FinishSurveyByAlphabetResult(abResultId);
+            }
 
             return RedirectToAction("Index", "Alphabet");
         }
-
-#region Create and edit functions
-        // GET: Alphabet/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Alphabet/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Alphabet/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Alphabet/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Alphabet/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Alphabet/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Alphabet/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-#endregion
     }
 }

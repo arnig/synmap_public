@@ -24,7 +24,11 @@ namespace WebApplication.Models.Entities
         [Key]
         public int Id { get; set; }
         public int Type { get; set; }
-    
+        public string UserId { get; set; }
+        public string SessionId { get; set; }
+        public DateTime DateStarted { get; set; }
+        public DateTime DateFinished { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlphabetResult> AlphabetResults { get; set; }
     }
