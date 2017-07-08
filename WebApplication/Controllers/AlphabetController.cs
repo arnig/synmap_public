@@ -58,5 +58,31 @@ namespace WebApplication.Controllers
 
             return RedirectToAction("Index", "Alphabet");
         }
+
+        public ActionResult Result(int? surveyId)
+        {
+            SurveyResultViewModel viewModel;
+
+            if (surveyId == null)
+            {
+                string currentSession = this.Session.SessionID;
+
+                viewModel = service.GetLatestAsciiResultsBySession(currentSession);
+            }
+            else
+            {
+                viewModel = service.GetAsciiResultsBySurveyId(surveyId.Value);
+            }
+
+            if (viewModel == null)
+            {
+                return RedirectToAction("Index", "Alphabet");
+            }
+            else
+            {
+                return View(viewModel);
+            }
+
+        }
     }
 }

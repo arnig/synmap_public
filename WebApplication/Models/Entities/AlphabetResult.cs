@@ -26,6 +26,7 @@ namespace WebApplication.Models.Entities
         public string UserId { get; set; }
         public Nullable<int> AlphabetId { get; set; }
         public int SurveyId { get; set; }
+        //TODO: Add 'numberOfAttempts'
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AsciiResult> AsciiResults { get; set; }

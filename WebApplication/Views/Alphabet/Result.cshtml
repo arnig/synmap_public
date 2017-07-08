@@ -1,0 +1,33 @@
+﻿@model WebApplication.Models.SurveyResultViewModel
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>Result</h2>
+
+<div class="container-fluid center" id="abResultChart">
+
+    @for (var i = 0; i < Model.calculations.Count; i++)
+    {
+        var first = Model.firstAttempt.ElementAt(i);
+        var second = Model.secondAttempt.ElementAt(i);
+        var third = Model.thirdAttempt.ElementAt(i);
+        var calc = Model.calculations.ElementAt(i);
+
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <p style="color:rgb(@first.R,@first.B,@first.G);">&#@first.Ascii;</p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <p style="color:rgb(@second.R,@second.B,@second.G);">&#@second.Ascii;</p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <p style="color:rgb(@third.R,@third.B,@third.G);">&#@third.Ascii;</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <p>@calc.Ascii</p>
+            </div>
+        </div>
+     }
+</div>
+

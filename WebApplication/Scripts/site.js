@@ -62,9 +62,9 @@
             attemptNumber++;
         }
 
-        // Navigate to front page after 3 attempts
+        // Navigate to result page after 3 attempts
         if (attemptNumber > 3) {
-            window.location = '../../';
+            window.location = '../Result';
         }
 
     });

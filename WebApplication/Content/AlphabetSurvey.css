@@ -39,3 +39,30 @@
     height:50px;
     width: 70px;
 }
+
+#abResultFirst {
+    float: left;
+    width: 20%;
+}
+#abResultSecond {
+    float: left;
+    width: 20%;
+}
+#abResultThird {
+    float: left;
+    width: 20%;
+}
+#abResultCalculations {
+    float: right;
+    width: 35%;
+    margin-left:1%;
+}
+
+#abResultChart {
+    min-height: 300px;
+}
+
+#abResultChart p {
+    /*TODO: Change px to vw or vh*/
+    font-size: 100px;
+}

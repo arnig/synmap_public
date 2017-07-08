@@ -32,4 +32,12 @@ namespace WebApplication.Models
         public int B { get; set; }
         public int A { get; set; }
     }
+
+    public class SurveyResultViewModel
+    {
+        public List<AsciiResult> firstAttempt { get; set; }
+        public List<AsciiResult> secondAttempt { get; set; }
+        public List<AsciiResult> thirdAttempt { get; set; }
+        public List<AsciiResult> calculations { get; set; }
+    }
 }

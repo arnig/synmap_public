@@ -13,6 +13,7 @@
             var imgPath = "/Images/Flags/" + @alphabet.Id + ".svg"; 
             
             <div class="col-md-4 col-sm-12">
+                @* TODO: Scale images properly *@
                 <img src="@imgPath" class="flagImage"></img>
                 <h3>@alphabet.Description</h3>
                 <p><a class="btn btn-default" href="@Url.Action("Participate","Alphabet", new { id = alphabet.Id })">Click here &raquo;</a></p>

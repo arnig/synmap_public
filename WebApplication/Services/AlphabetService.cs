@@ -67,6 +67,48 @@ namespace WebApplication.Services
             return Convert.ToBoolean(db.SaveChanges());
         }
 
+        public SurveyResultViewModel GetLatestAsciiResultsBySession(string sessionId)
+        {
+            Survey survey = (from sv in db.Surveys
+                             where sv.SessionId == sessionId
+                             orderby sv.DateStarted descending
+                             select sv).FirstOrDefault();
+
+            if (survey == null)
+            {
+                return null;
+            }
+
+            AlphabetResult alphabetResult = (from abr in db.AlphabetResults
+                                             where abr.SurveyId == survey.Id
+                                             select abr).SingleOrDefault();
+
+            IQueryable<AsciiResult> asciiResults = (from ar in db.AsciiResults
+                                              where ar.AlphabetResultId == alphabetResult.Id
+                                              select ar);
+
+            //TODO: make foreach loop for the following..
+
+            List<AsciiResult> firstAttempt = (from ar in asciiResults
+                                              where ar.AttemptNumber == 1
+                                              select ar).ToList();
+
+            List<AsciiResult> secondAttempt = (from ar in asciiResults
+                                              where ar.AttemptNumber == 2
+                                              select ar).ToList();
+
+            List<AsciiResult> thirdAttempt = (from ar in asciiResults
+                                              where ar.AttemptNumber == 3
+                                              select ar).ToList();
+
+            return new SurveyResultViewModel { firstAttempt = firstAttempt, secondAttempt = secondAttempt, thirdAttempt = thirdAttempt, calculations = firstAttempt };
+        }
+
+        internal SurveyResultViewModel GetAsciiResultsBySurveyId(int value)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool PostAsciiResults(AlphabetResultViewModel viewModel, int alphabetResultId)
         {
             foreach (var result in viewModel.results)
