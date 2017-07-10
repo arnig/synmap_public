@@ -38,6 +38,7 @@ namespace WebApplication.Models
         public List<AsciiResult> firstAttempt { get; set; }
         public List<AsciiResult> secondAttempt { get; set; }
         public List<AsciiResult> thirdAttempt { get; set; }
-        public List<AsciiResult> calculations { get; set; }
+        public List<float> calculations { get; set; }
+        public float score { get; set; }
     }
 }

@@ -3,7 +3,7 @@
     ViewBag.Title = "Result";
 }
 
-<h2>Result</h2>
+<h2 class="center">Score : @Model.score</h2>
 
 <div class="container-fluid center" id="abResultChart">
 
@@ -25,9 +25,8 @@
                 <p style="color:rgb(@third.R,@third.B,@third.G);">&#@third.Ascii;</p>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <p>@calc.Ascii</p>
+                <p>@calc</p>
             </div>
         </div>
      }
 </div>
-

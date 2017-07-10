@@ -84,8 +84,8 @@ namespace WebApplication.Services
                                              select abr).SingleOrDefault();
 
             IQueryable<AsciiResult> asciiResults = (from ar in db.AsciiResults
-                                              where ar.AlphabetResultId == alphabetResult.Id
-                                              select ar);
+                                                    where ar.AlphabetResultId == alphabetResult.Id
+                                                    select ar);
 
             //TODO: make foreach loop for the following..
 
@@ -94,14 +94,49 @@ namespace WebApplication.Services
                                               select ar).ToList();
 
             List<AsciiResult> secondAttempt = (from ar in asciiResults
-                                              where ar.AttemptNumber == 2
-                                              select ar).ToList();
+                                               where ar.AttemptNumber == 2
+                                               select ar).ToList();
 
             List<AsciiResult> thirdAttempt = (from ar in asciiResults
                                               where ar.AttemptNumber == 3
                                               select ar).ToList();
 
-            return new SurveyResultViewModel { firstAttempt = firstAttempt, secondAttempt = secondAttempt, thirdAttempt = thirdAttempt, calculations = firstAttempt };
+            List<float> calculations = new List<float>();
+
+            //TODO: Create database entry for these values
+            for (int i = 0; i < firstAttempt.Count; i++)
+            {
+                float v_r = (
+                    (float)
+                    (Math.Abs(firstAttempt.ElementAt(i).R - secondAttempt.ElementAt(i).R)
+                    + Math.Abs(secondAttempt.ElementAt(i).R - thirdAttempt.ElementAt(i).R)
+                    + Math.Abs(thirdAttempt.ElementAt(i).R - firstAttempt.ElementAt(i).R))
+                    ) / 255;
+                float v_g = (
+                    (float)
+                    (Math.Abs(firstAttempt.ElementAt(i).G - secondAttempt.ElementAt(i).G)
+                    + Math.Abs(secondAttempt.ElementAt(i).G - thirdAttempt.ElementAt(i).G)
+                    + Math.Abs(thirdAttempt.ElementAt(i).G - firstAttempt.ElementAt(i).G))
+                    ) / 255;
+                float v_b = (
+                    (float)
+                    (Math.Abs(firstAttempt.ElementAt(i).B - secondAttempt.ElementAt(i).B)
+                    + Math.Abs(secondAttempt.ElementAt(i).B - thirdAttempt.ElementAt(i).B)
+                    + Math.Abs(thirdAttempt.ElementAt(i).B - firstAttempt.ElementAt(i).B))
+                    ) / 255;
+
+                calculations.Add(v_r + v_g + v_b);
+            }
+
+            float score = calculations.Sum() / ((float) calculations.Count);
+
+            return new SurveyResultViewModel {
+                firstAttempt = firstAttempt,
+                secondAttempt = secondAttempt,
+                thirdAttempt = thirdAttempt,
+                calculations = calculations,
+                score = score
+            };
         }
 
         internal SurveyResultViewModel GetAsciiResultsBySurveyId(int value)
