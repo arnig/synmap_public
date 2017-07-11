@@ -1,8 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebApplication.Models.Entities;
 
 namespace WebApplication.Models
 {
+    public class AccountABSurveysViewModel
+    {
+        public List<Survey> Surveys { get; set; }
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

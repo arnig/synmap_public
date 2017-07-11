@@ -12,13 +12,13 @@ namespace WebApplication.Models.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class AsciiAlphabet
     {
-        [Key]
+        [Column(Order = 0), Key]
         public int AlphabetId { get; set; }
+        [Column(Order = 1), Key]
         public int Ascii { get; set; }
-    
-        public virtual Alphabet Alphabet { get; set; }
     }
 }

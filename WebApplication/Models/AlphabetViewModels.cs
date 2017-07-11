@@ -41,4 +41,11 @@ namespace WebApplication.Models
         public List<float> calculations { get; set; }
         public float score { get; set; }
     }
+
+    public class AlphabetCreateViewModel
+    {
+        public string Description { get; set; }
+        public string Nation { get; set; }
+        public string Characters { get; set; }
+    }
 }

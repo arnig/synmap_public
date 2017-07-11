@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>My profile</h2>
+
+<h3>Account information</h3>
+<p>Name</p>
+<p>Email</p>
+<p>What I eat for breakfast</p>
+<p>...</p>
+<button class="btn-warning">Edit</button>
+
+<hr />
+
+<h3>My Surveys</h3>
+<div id="profileSurveys">
+    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Alphabets</a>
+    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Graphemes</a>
+    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Other</a>
+</div>

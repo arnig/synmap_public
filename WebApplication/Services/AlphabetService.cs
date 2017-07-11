@@ -139,6 +139,88 @@ namespace WebApplication.Services
             };
         }
 
+        public bool Edit(int id, AlphabetCreateViewModel editAlphabet)
+        {
+            Alphabet oldAlphabet = getAlphabetById(id);
+
+            if ( (editAlphabet.Nation != oldAlphabet.Nation) || (editAlphabet.Description != oldAlphabet.Description))
+            {
+                oldAlphabet.Nation = editAlphabet.Nation;
+                oldAlphabet.Description = editAlphabet.Description;
+
+                if (!Convert.ToBoolean(db.SaveChanges()))
+                {
+                    return false;
+                }
+            }
+
+            // Delete old values
+            List<AsciiAlphabet> oldAsciiAlphabet = (from aa in db.AsciiAlphabets
+                                 where aa.AlphabetId == id
+                                 select aa).ToList();
+
+            if (oldAsciiAlphabet.Count > 0)
+            {
+                db.AsciiAlphabets.RemoveRange(oldAsciiAlphabet);
+
+                if (!Convert.ToBoolean(db.SaveChanges()))
+                {
+                    return false;
+                }
+            }
+
+            // Insert new values
+            for (int i = 0; i < editAlphabet.Characters.Length; i++)
+            {
+                char temp = editAlphabet.Characters.ElementAt(i);
+
+                AsciiAlphabet asciiAlphabet = new AsciiAlphabet { AlphabetId = id, Ascii = (int)temp };
+
+                db.AsciiAlphabets.Add(asciiAlphabet);
+            }
+
+            return Convert.ToBoolean(db.SaveChanges());
+        }
+
+        private Alphabet getAlphabetById(int id)
+        {
+            return (from ab in db.Alphabets
+                    where ab.Id == id
+                    select ab).SingleOrDefault();
+        }
+
+        public AlphabetCreateViewModel GetAlphabetCreateModel(int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Add(AlphabetCreateViewModel newAlphabet)
+        {
+            Alphabet alphabet = new Alphabet { Nation = newAlphabet.Nation, Description = newAlphabet.Description };
+
+            db.Alphabets.Add(alphabet);
+
+            if (!Convert.ToBoolean(db.SaveChanges()))
+            {
+                return false;
+            }
+
+            int alphabetId = (from ab in db.Alphabets
+                              orderby ab.Id descending
+                              select ab.Id).FirstOrDefault();
+
+            for (int i = 0; i < newAlphabet.Characters.Length; i++)
+            {
+                char temp = newAlphabet.Characters.ElementAt(i);
+
+                AsciiAlphabet asciiAlphabet = new AsciiAlphabet { AlphabetId = alphabetId, Ascii = (int)temp };
+
+                db.AsciiAlphabets.Add(asciiAlphabet);
+            }
+
+            return Convert.ToBoolean(db.SaveChanges());
+        }
+
         internal SurveyResultViewModel GetAsciiResultsBySurveyId(int value)
         {
             throw new NotImplementedException();

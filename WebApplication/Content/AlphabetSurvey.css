@@ -66,3 +66,18 @@
     /*TODO: Change px to vw or vh*/
     font-size: 100px;
 }
+
+#AlphabetSurveyList table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#AlphabetSurveyList td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#AlphabetSurveyList tr:nth-child(even) {
+    background-color: #dddddd;
+}

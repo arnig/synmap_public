@@ -6,7 +6,7 @@
 <div class="jumbotron center">
     <h1>The Synesthesia Web</h1>
     <p class="lead">Here you can take free surveys to test synesthetic symptoms.</p>
-    <p><a href="@Url.Action("Index","Survey")" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p><a href="@Url.Action("Index", "Survey")" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
 <hr />
@@ -25,17 +25,20 @@
                 <div class="col-md-3 col-sm-12">
                     <img src="@imgPath" class="flagImage"></img>
                     <p>@alphabet.Description</p>
-                    <p><a class="btn btn-default" href="@Url.Action("Participate","Alphabet", new { id = alphabet.Id })">Click here &raquo;</a></p>
+                    <p><a class="btn btn-default" href="@Url.Action("Participate", "Alphabet", new { id = alphabet.Id })">Click here &raquo;</a></p>
                 </div>
             }
         </div>
     </div>
 </div>
 
-<hr />
+@if ((System.Web.HttpContext.Current.User != null) && (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated))
+{
+    <hr />
 
-<div class="jumbotron center">
-    <h2>Sign up!</h2>
-    <p class="lead">Create an account to keep track of your surveys</p>
-    <p><a href="@Url.Action("Register","Account")" class="btn btn-primary btn-lg">Register &raquo;</a></p>
-</div>
+    <div class="jumbotron center">
+        <h2>Sign up!</h2>
+        <p class="lead">Create an account to keep track of your surveys</p>
+        <p><a href="@Url.Action("Register","Account")" class="btn btn-primary btn-lg">Register &raquo;</a></p>
+    </div>
+}
