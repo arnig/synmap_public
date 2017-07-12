@@ -1,4 +1,4 @@
-﻿@model WebApplication.Models.AlphabetsViewModel
+﻿@model WebApplication.Models.AlphabetIndexViewModel
 @{
     ViewBag.Title = "Alphabets";
 }
@@ -8,16 +8,22 @@
     <h2>Nordic Alphabets</h2>
 
     <div class="row" id="countryList">
-        @foreach (var alphabet in Model.alphabets)
+        @foreach (var alphabet in Model.Alphabets)
         {
-            var imgPath = "/Images/Flags/" + @alphabet.Id + ".svg"; 
+            var imgPath = "/Images/Flags/" + @alphabet.Id + ".svg";
+            if (!File.Exists(Server.MapPath("~/") + imgPath))
+                imgPath = "/Images/Flags/noflag.svg";
             
+
             <div class="col-md-4 col-sm-12">
                 @* TODO: Scale images properly *@
-                <img src="@imgPath" class="flagImage" />
+                <img src="@imgPath" class="flagImage" alt="Flag image" />
                 <h3>@alphabet.Description</h3>
                 <p><a class="btn btn-success" href="@Url.Action("Participate","Alphabet", new { id = alphabet.Id })">Participate &raquo;</a></p>
-                <p><a class="btn btn-sm btn-warning" href="@Url.Action("Edit","Alphabet", new { id = alphabet.Id })">Edit</a></p>
+                @if (Model.UserRoles.Contains("Admin"))
+                {
+                    <p><a class="btn btn-sm btn-warning" href="@Url.Action("Edit","Alphabet", new { id = alphabet.Id })">Edit</a></p>
+                }
             </div>
         }
     </div>

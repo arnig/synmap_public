@@ -17,12 +17,28 @@ namespace WebApplication.Services
             db = new ApplicationDbContext();
         }
 
-        public AlphabetsViewModel getAlphabets()
+        public AlphabetIndexViewModel getAlphabets(string userId)
         {
             List<Alphabet> alphabetList = (from ab in db.Alphabets
                                 select ab).ToList();
 
-            return new AlphabetsViewModel { alphabets = alphabetList };
+            var roles = (from ur in db.Roles
+                         select ur).ToList();
+
+            List<string> userRoles = new List<string>();
+
+            foreach (var ur in roles)
+            {
+                foreach (var user in ur.Users)
+                {
+                    if (user.UserId == userId)
+                    {
+                        userRoles.Add(ur.Name);
+                    }
+                }
+            }
+
+            return new AlphabetIndexViewModel { Alphabets = alphabetList, UserRoles = userRoles };
         }
 
         public AlphabetViewModel getAlphabet(int id)

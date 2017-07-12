@@ -6,9 +6,10 @@ using WebApplication.Models.Entities;
 
 namespace WebApplication.Models
 {
-    public class AlphabetsViewModel
+    public class AlphabetIndexViewModel
     {
-        public List<Alphabet> alphabets { get; set; }
+        public List<Alphabet> Alphabets { get; set; }
+        public List<string> UserRoles { get; set; }
     }
 
     public class AlphabetViewModel

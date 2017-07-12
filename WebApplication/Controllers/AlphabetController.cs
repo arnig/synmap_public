@@ -16,7 +16,7 @@ namespace WebApplication.Controllers
         // GET: Alphabet
         public ActionResult Index()
         {
-            AlphabetsViewModel alphabets = service.getAlphabets();
+            AlphabetIndexViewModel alphabets = service.getAlphabets(User.Identity.GetUserId());
 
             return View(alphabets);
         }

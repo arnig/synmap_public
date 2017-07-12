@@ -17,6 +17,7 @@
         <div class="row" id="countryList">
             <div class="col-md-3 col-sm-12">
                 <h3>Alphabets</h3>
+                <p><a class="btn btn-default" href="@Url.Action("Index", "Alphabet")">View all &raquo;</a></p>
             </div>
             @foreach (var alphabet in Model.alphabets)
             {
@@ -25,7 +26,7 @@
                 <div class="col-md-3 col-sm-12">
                     <img src="@imgPath" class="flagImage"></img>
                     <p>@alphabet.Description</p>
-                    <p><a class="btn btn-default" href="@Url.Action("Participate", "Alphabet", new { id = alphabet.Id })">Click here &raquo;</a></p>
+                    <p><a class="btn btn-default" href="@Url.Action("Participate", "Alphabet", new { id = alphabet.Id })">Participate &raquo;</a></p>
                 </div>
             }
         </div>
