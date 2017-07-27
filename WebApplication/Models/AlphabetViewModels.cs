@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using WebApplication.Models.Entities;
 
 namespace WebApplication.Models
@@ -48,5 +49,15 @@ namespace WebApplication.Models
         public string Description { get; set; }
         public string Nation { get; set; }
         public string Characters { get; set; }
+        public string BackgroundColor { get; set; }
+        public string Font { get; set; }
+        public IEnumerable<SelectListItem> AvailableFonts { get; set; }
+    }
+
+    public class AlphabetParticipateViewModel
+    {
+        public Alphabet Alphabet { get; set; }
+        public List<int> Ascii { get; set; }
+
     }
 }

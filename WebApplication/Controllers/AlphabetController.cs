@@ -36,7 +36,7 @@ namespace WebApplication.Controllers
             
             service.PostAlphabetResult(id.Value, currentUser, currentSession);
 
-            AlphabetViewModel alphabet = service.getAlphabet(id.Value);
+            AlphabetParticipateViewModel alphabet = service.GetAlphabetParticipateModel(id.Value);
 
             return View(alphabet);
         }
@@ -87,7 +87,9 @@ namespace WebApplication.Controllers
         //TODO: Authorize admin
         public ActionResult Create()
         {
-            return View();
+            AlphabetCreateViewModel vm = service.GetAlphabetCreateModel();
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -129,8 +131,12 @@ namespace WebApplication.Controllers
             {
                 Nation = alphabetViewModel.Alphabet.Nation,
                 Description = alphabetViewModel.Alphabet.Description,
-                Characters = characters
+                Characters = characters,
+                BackgroundColor = alphabetViewModel.Alphabet.BackgroundARGB,
+                Font = alphabetViewModel.Alphabet.Font
             };
+
+            service.PopulateFonts(vm);
 
             return View(vm);
         }
@@ -144,6 +150,7 @@ namespace WebApplication.Controllers
                 if (!service.Edit(id.Value, editAlphabet))
                 {
                     ModelState.AddModelError("", "No changes have been made!");
+                    service.PopulateFonts(editAlphabet);
                     return View(editAlphabet);
                 }
 

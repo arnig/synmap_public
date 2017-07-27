@@ -5,6 +5,7 @@ using System.Web;
 using WebApplication.Models;
 using WebApplication.Models.Entities;
 using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace WebApplication.Services
 {
@@ -41,14 +42,29 @@ namespace WebApplication.Services
             return new AlphabetIndexViewModel { Alphabets = alphabetList, UserRoles = userRoles };
         }
 
+        public AlphabetParticipateViewModel GetAlphabetParticipateModel(int value)
+        {
+            AlphabetParticipateViewModel vm = new AlphabetParticipateViewModel();
+
+            vm.Alphabet = getAlphabetById(value);
+
+            vm.Ascii = getAsciiByAlphabet(value);
+
+            return vm;
+        }
+
+        private List<int> getAsciiByAlphabet(int id)
+        {
+            return (from x in db.AsciiAlphabets
+                    where x.AlphabetId == id
+                    select x.Ascii).ToList();
+        }
+
         public AlphabetViewModel getAlphabet(int id)
         {
-            Alphabet alphabet= (from ab in db.Alphabets
-                                  where ab.Id == id
-                                  select ab).SingleOrDefault();
-            List<int> ascii = (from x in db.AsciiAlphabets
-                               where x.AlphabetId == id
-                               select x.Ascii).ToList();
+            Alphabet alphabet = getAlphabetById(id);
+
+            List<int> ascii = getAsciiByAlphabet(id);
 
             return new AlphabetViewModel { Ascii = ascii, Alphabet = alphabet};
         }
@@ -81,6 +97,19 @@ namespace WebApplication.Services
             survey.DateFinished = DateTime.Now;
 
             return Convert.ToBoolean(db.SaveChanges());
+        }
+
+        public void PopulateFonts(AlphabetCreateViewModel vm)
+        {
+            List<string> fontlist = new List<string>(new string[] { "Arial Black", "Lucida Console", "Times New Roman" });
+
+            IEnumerable<SelectListItem> fonts = fontlist.Select(x => new SelectListItem
+            {
+                Text = x,
+                Value = x
+            });
+
+            vm.AvailableFonts = fonts;
         }
 
         public SurveyResultViewModel GetLatestAsciiResultsBySession(string sessionId)
@@ -165,10 +194,18 @@ namespace WebApplication.Services
         {
             Alphabet oldAlphabet = getAlphabetById(id);
 
-            if ( (editAlphabet.Nation != oldAlphabet.Nation) || (editAlphabet.Description != oldAlphabet.Description))
+            //TODO: Make Alphabet and compare in single statement
+            if ( 
+                (editAlphabet.Nation != oldAlphabet.Nation)
+                || (editAlphabet.Description != oldAlphabet.Description)
+                || (editAlphabet.BackgroundColor != oldAlphabet.BackgroundARGB)
+                || (editAlphabet.Font != oldAlphabet.Font)
+                )
             {
                 oldAlphabet.Nation = editAlphabet.Nation;
                 oldAlphabet.Description = editAlphabet.Description;
+                oldAlphabet.BackgroundARGB = editAlphabet.BackgroundColor;
+                oldAlphabet.Font = editAlphabet.Font;
 
                 if (!Convert.ToBoolean(db.SaveChanges()))
                 {
@@ -211,16 +248,27 @@ namespace WebApplication.Services
                     select ab).SingleOrDefault();
         }
 
-        public AlphabetCreateViewModel GetAlphabetCreateModel(int value)
+        public AlphabetCreateViewModel GetAlphabetCreateModel()
         {
-            throw new NotImplementedException();
+            AlphabetCreateViewModel vm = new AlphabetCreateViewModel();
+
+            PopulateFonts(vm);
+
+            vm.BackgroundColor = "#ffffff";
+
+            return vm;
         }
 
         public bool Add(AlphabetCreateViewModel newAlphabet)
         {
-            Alphabet alphabet = new Alphabet { Nation = newAlphabet.Nation, Description = newAlphabet.Description };
+            Alphabet alphabet = new Alphabet {
+                Nation = newAlphabet.Nation,
+                Description = newAlphabet.Description,
+                BackgroundARGB = newAlphabet.BackgroundColor,
+                Font = newAlphabet.Font
+                };
 
-            db.Alphabets.Add(alphabet);
+            db.Alphabets.Add(alphabet); 
 
             if (!Convert.ToBoolean(db.SaveChanges()))
             {
