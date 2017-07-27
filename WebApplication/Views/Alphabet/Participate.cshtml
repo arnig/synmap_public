@@ -1,4 +1,4 @@
-﻿@model WebApplication.Models.AlphabetViewModel
+﻿@model WebApplication.Models.AlphabetParticipateViewModel
 @{
     ViewBag.Title = "Participate";
 }
@@ -6,7 +6,7 @@
 <h2>@Model.Alphabet.Description</h2>
 
 
-<div class="container-fluid" id="">
+<div class="container-fluid" style="background-color:@Model.Alphabet.BackgroundARGB">
     <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div id="colorPicker">
@@ -21,7 +21,7 @@
             <div id="char">
                 @foreach(var c in Model.Ascii)
                 {
-                    <p title="@c" hidden="hidden">&#@c;</p>
+                    <p title="@c" hidden="hidden" style="font-family:@Model.Alphabet.Font">&#@c;</p>
                 }
             </div>
         </div>
