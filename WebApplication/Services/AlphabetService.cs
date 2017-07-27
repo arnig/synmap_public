@@ -103,6 +103,11 @@ namespace WebApplication.Services
                                                     where ar.AlphabetResultId == alphabetResult.Id
                                                     select ar);
 
+            return getSurveyResultViewModel(asciiResults);
+        }
+
+        private SurveyResultViewModel getSurveyResultViewModel(IQueryable<AsciiResult> asciiResults)
+        {
             //TODO: make foreach loop for the following..
 
             List<AsciiResult> firstAttempt = (from ar in asciiResults
@@ -144,9 +149,10 @@ namespace WebApplication.Services
                 calculations.Add(v_r + v_g + v_b);
             }
 
-            float score = calculations.Sum() / ((float) calculations.Count);
+            float score = calculations.Sum() / ((float)calculations.Count);
 
-            return new SurveyResultViewModel {
+            return new SurveyResultViewModel
+            {
                 firstAttempt = firstAttempt,
                 secondAttempt = secondAttempt,
                 thirdAttempt = thirdAttempt,
@@ -237,9 +243,17 @@ namespace WebApplication.Services
             return Convert.ToBoolean(db.SaveChanges());
         }
 
-        internal SurveyResultViewModel GetAsciiResultsBySurveyId(int value)
+        public SurveyResultViewModel GetAsciiResultsBySurveyId(int id)
         {
-            throw new NotImplementedException();
+            AlphabetResult alphabetResult = (from abr in db.AlphabetResults
+                                             where abr.SurveyId == id
+                                             select abr).SingleOrDefault();
+
+            IQueryable<AsciiResult> asciiResults = (from ar in db.AsciiResults
+                                                    where ar.AlphabetResultId == alphabetResult.Id
+                                                    select ar);
+
+            return getSurveyResultViewModel(asciiResults);
         }
 
         public bool PostAsciiResults(AlphabetResultViewModel viewModel, int alphabetResultId)
@@ -287,7 +301,6 @@ namespace WebApplication.Services
             Survey survey = new Survey() { Type = 0, UserId = userId, SessionId = sessionId, DateStarted = DateTime.Now };
 
             db.Surveys.Add(survey);
-            //TODO: Attach userId to survey and remove from AlphabetResult
 
             return Convert.ToBoolean(db.SaveChanges());
         }

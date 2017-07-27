@@ -19,7 +19,7 @@ namespace WebApplication.Services
         public AccountABSurveysViewModel GetSurveysByUserId(string userId)
         {
             List<Survey> surveys = (from sv in db.Surveys
-                                    where sv.UserId == userId
+                                    where (sv.UserId == userId) && (sv.DateFinished != null) 
                                     orderby sv.DateFinished ascending
                                     select sv).ToList();
 
