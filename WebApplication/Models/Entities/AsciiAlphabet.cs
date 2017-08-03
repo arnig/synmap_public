@@ -18,6 +18,7 @@ namespace WebApplication.Models.Entities
     {
         [Column(Order = 0), Key]
         public int AlphabetId { get; set; }
+        public Nullable<int> Index { get; set; }
         [Column(Order = 1), Key]
         public int Ascii { get; set; }
     }

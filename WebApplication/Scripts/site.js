@@ -22,7 +22,25 @@
             }
         });
         if (allHidden) {
+            var charList = [];
+            
+            //Randomize List
+            $.each(htmlValues, function (index, value) {
+                charList.push({
+                    title: $(this).attr('title'),
+                    text: $(this).text()
+                });
+            });
+            
+            shuffle(charList);
+
+            $.each(htmlValues, function (index, value) {
+                $(this).attr('title', charList[index].title);
+                $(this).text(charList[index].text);
+            });
+
             htmlValues.first().removeAttr('hidden');
+
             return;
         }
 

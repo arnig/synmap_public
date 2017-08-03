@@ -233,7 +233,7 @@ namespace WebApplication.Services
             {
                 char temp = editAlphabet.Characters.ElementAt(i);
 
-                AsciiAlphabet asciiAlphabet = new AsciiAlphabet { AlphabetId = id, Ascii = (int)temp };
+                AsciiAlphabet asciiAlphabet = new AsciiAlphabet { AlphabetId = id, Index = i, Ascii = (int)temp };
 
                 db.AsciiAlphabets.Add(asciiAlphabet);
             }
@@ -283,7 +283,7 @@ namespace WebApplication.Services
             {
                 char temp = newAlphabet.Characters.ElementAt(i);
 
-                AsciiAlphabet asciiAlphabet = new AsciiAlphabet { AlphabetId = alphabetId, Ascii = (int)temp };
+                AsciiAlphabet asciiAlphabet = new AsciiAlphabet { AlphabetId = alphabetId, Index = i, Ascii = (int)temp };
 
                 db.AsciiAlphabets.Add(asciiAlphabet);
             }
