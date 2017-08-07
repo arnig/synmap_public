@@ -38,3 +38,23 @@ function shuffle(array) {
 
     return array;
 }
+
+
+//Customize brightness with arrow keys
+document.onkeydown = function (e) {
+    e = e || window.event;
+    // use e.keyCode
+
+    var HSV = colorWheel.color.hsv;
+
+    if (e.keyCode === 37) {
+        if (HSV.v > 0) {
+            colorWheel.color.hsv = { h: HSV.h, s: HSV.s, v: HSV.v - 1 };
+        }
+    }
+    else if (e.keyCode === 39) {
+        if (HSV.v < 100) {
+            colorWheel.color.hsv = { h: HSV.h, s: HSV.s, v: HSV.v + 1 };
+        }
+    }
+};

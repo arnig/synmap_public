@@ -56,6 +56,12 @@
 
                 keyValues.push(pair);
 
+                //Randomize color value
+                var newH = Math.floor(Math.random() * 360);
+                var newS = Math.floor(Math.random() * 100);
+
+                colorWheel.color.hsv = { h: newH, s: newS, v: 100 };
+
                 $(this).attr('hidden', true);
             }
             else if (index === charIndex + 1) {
@@ -86,5 +92,6 @@
         }
 
     });
-});
 
+    
+});
