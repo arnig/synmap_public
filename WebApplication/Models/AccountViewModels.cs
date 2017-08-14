@@ -9,6 +9,11 @@ namespace WebApplication.Models
         public List<Survey> Surveys { get; set; }
     }
 
+    public class AccountIndexViewModel
+    {
+        public List<string> UserRoles { get; set; }
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

@@ -6,6 +6,7 @@ using WebApplication.Models;
 using WebApplication.Models.Entities;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
+using System.Drawing;
 
 namespace WebApplication.Services
 {
@@ -156,29 +157,45 @@ namespace WebApplication.Services
             //TODO: Create database entry for these values
             for (int i = 0; i < firstAttempt.Count; i++)
             {
-                float v_r = (
+                //Check if there is null (no color)
+                if (!firstAttempt.ElementAt(i).R.HasValue ||
+                    !firstAttempt.ElementAt(i).G.HasValue ||
+                    !firstAttempt.ElementAt(i).B.HasValue ||
+                    !secondAttempt.ElementAt(i).R.HasValue ||
+                    !secondAttempt.ElementAt(i).G.HasValue ||
+                    !secondAttempt.ElementAt(i).B.HasValue ||
+                    !thirdAttempt.ElementAt(i).R.HasValue ||
+                    !thirdAttempt.ElementAt(i).G.HasValue ||
+                    !thirdAttempt.ElementAt(i).B.HasValue )
+                {
+                    calculations.Add(-1);
+                }
+                else
+                {
+                    float v_r = (
                     (float)
-                    (Math.Abs(firstAttempt.ElementAt(i).R - secondAttempt.ElementAt(i).R)
-                    + Math.Abs(secondAttempt.ElementAt(i).R - thirdAttempt.ElementAt(i).R)
-                    + Math.Abs(thirdAttempt.ElementAt(i).R - firstAttempt.ElementAt(i).R))
+                    (Math.Abs(firstAttempt.ElementAt(i).R.Value - secondAttempt.ElementAt(i).R.Value)
+                    + Math.Abs(secondAttempt.ElementAt(i).R.Value - thirdAttempt.ElementAt(i).R.Value)
+                    + Math.Abs(thirdAttempt.ElementAt(i).R.Value - firstAttempt.ElementAt(i).R.Value))
                     ) / 255;
-                float v_g = (
-                    (float)
-                    (Math.Abs(firstAttempt.ElementAt(i).G - secondAttempt.ElementAt(i).G)
-                    + Math.Abs(secondAttempt.ElementAt(i).G - thirdAttempt.ElementAt(i).G)
-                    + Math.Abs(thirdAttempt.ElementAt(i).G - firstAttempt.ElementAt(i).G))
-                    ) / 255;
-                float v_b = (
-                    (float)
-                    (Math.Abs(firstAttempt.ElementAt(i).B - secondAttempt.ElementAt(i).B)
-                    + Math.Abs(secondAttempt.ElementAt(i).B - thirdAttempt.ElementAt(i).B)
-                    + Math.Abs(thirdAttempt.ElementAt(i).B - firstAttempt.ElementAt(i).B))
-                    ) / 255;
+                    float v_g = (
+                        (float)
+                        (Math.Abs(firstAttempt.ElementAt(i).G.Value - secondAttempt.ElementAt(i).G.Value)
+                        + Math.Abs(secondAttempt.ElementAt(i).G.Value - thirdAttempt.ElementAt(i).G.Value)
+                        + Math.Abs(thirdAttempt.ElementAt(i).G.Value - firstAttempt.ElementAt(i).G.Value))
+                        ) / 255;
+                    float v_b = (
+                        (float)
+                        (Math.Abs(firstAttempt.ElementAt(i).B.Value - secondAttempt.ElementAt(i).B.Value)
+                        + Math.Abs(secondAttempt.ElementAt(i).B.Value - thirdAttempt.ElementAt(i).B.Value)
+                        + Math.Abs(thirdAttempt.ElementAt(i).B.Value - firstAttempt.ElementAt(i).B.Value))
+                        ) / 255;
 
-                calculations.Add(v_r + v_g + v_b);
+                    calculations.Add(v_r + v_g + v_b);
+                }
             }
 
-            float score = calculations.Sum() / ((float)calculations.Count);
+            float score = calculations.Where(x => !(x < 0)).Average();
 
             return new SurveyResultViewModel
             {
@@ -188,6 +205,46 @@ namespace WebApplication.Services
                 calculations = calculations,
                 score = score
             };
+        }
+
+        public List<DownloadViewModel> GetCompletedSurveys()
+        {
+            List<DownloadViewModel> viewModel = new List<DownloadViewModel>();
+
+            var asciiResults = (from sv in db.Surveys
+                           where sv.DateFinished.HasValue
+                           join abr in db.AlphabetResults
+                           on sv.Id equals abr.SurveyId
+                           join asr in db.AsciiResults
+                           on abr.Id equals asr.AlphabetResultId
+                           join ab in db.Alphabets
+                           on abr.AlphabetId equals ab.Id
+                           orderby sv.Id, asr.AttemptNumber, asr.Ascii 
+                           select asr).ToList();
+
+            foreach (var asr in asciiResults)
+            {
+                AlphabetResult abr = asr.AlphabetResult;
+                Color bkg = ColorTranslator.FromHtml(abr.Alphabet.BackgroundARGB);
+                
+                viewModel.Add(new DownloadViewModel {
+                    User = abr.UserId,
+                    Survey = abr.SurveyId.ToString(),
+                    Language = abr.Alphabet.Nation,
+                    AsciiCharacter = asr.Ascii.ToString(),
+                    AttemptNumber = asr.AttemptNumber.ToString(),
+                    CharR = asr.R.HasValue ? asr.R.ToString() : "NaN",
+                    CharG = asr.G.HasValue ? asr.G.ToString() : "NaN",
+                    CharB = asr.B.HasValue ? asr.B.ToString() : "NaN",
+                    BackgroundR = bkg.R.ToString(),
+                    BackgroundG = bkg.G.ToString(),
+                    BackgroundB = bkg.B.ToString(),
+                    TimeStamp = abr.Survey.DateFinished.ToString()
+                });
+                
+            }
+
+            return viewModel;
         }
 
         public bool Edit(int id, AlphabetCreateViewModel editAlphabet)

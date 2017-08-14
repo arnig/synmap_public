@@ -258,6 +258,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\ExtensionMethods.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AlphabetService.cs" />
     <Compile Include="Services\HomeService.cs" />

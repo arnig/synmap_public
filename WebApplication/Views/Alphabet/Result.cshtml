@@ -25,7 +25,14 @@
                 <p style="color:rgb(@third.R,@third.G,@third.B);">&#@third.Ascii;</p>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <p>@calc</p>
+                @if (calc < 0)
+                {
+                    <p>Invalid</p>
+                }
+                else
+                {
+                    <p>@calc</p>
+                }
             </div>
         </div>
      }

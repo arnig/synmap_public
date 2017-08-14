@@ -33,7 +33,9 @@ namespace WebApplication.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            AccountIndexViewModel vm = service.GetIndexViewModel(User.Identity.GetUserId());
+
+            return View(vm);
         }
 
         public ActionResult AlphabetSurveys()

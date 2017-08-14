@@ -1,7 +1,7 @@
 ﻿// Create instance of the colorWheel
 var colorWheel = iro.ColorWheel("#colorWheel", {
-    width: 320,
-    height: 320,
+    width: 480,
+    height: 480,
     padding: 4,
     markerRadius: 8,
     color: "rgb(68, 255, 158)",

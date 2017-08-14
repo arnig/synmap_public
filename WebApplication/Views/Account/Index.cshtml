@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApplication.Models.AccountIndexViewModel
 @{
     ViewBag.Title = "Profile";
 }
@@ -20,3 +20,15 @@
     <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Graphemes</a>
     <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Other</a>
 </div>
+
+@if (Model.UserRoles.Contains("Admin"))
+{
+    <hr />
+
+    <h3>Downloads</h3>
+    <div id="downloads">
+        <div id="abDownloads">
+            <button class="btn btn-success btn-sm" id="btnDownloadAB">Download CSV</button>
+        </div>
+    </div>
+}

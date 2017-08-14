@@ -7,6 +7,7 @@ using WebApplication.Services;
 using WebApplication.Models;
 using System.Web.Services;
 using Microsoft.AspNet.Identity;
+using WebApplication.Scripts;
 
 namespace WebApplication.Controllers
 {
@@ -157,6 +158,14 @@ namespace WebApplication.Controllers
                 return RedirectToAction("Index");
             }
             return View("Index");
+        }
+
+        [HttpPost]
+        public String DownloadSingle(int? id)
+        {
+            var surveys = service.GetCompletedSurveys();
+
+            return surveys.ToJSON();
         }
     }
 }

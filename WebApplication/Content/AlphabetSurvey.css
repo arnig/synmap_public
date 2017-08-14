@@ -7,7 +7,7 @@
     position: relative;
     display: flex;
     flex-flow: column;
-    height: 325px;
+    height: 485px;
 }
 
 #char {
@@ -18,7 +18,7 @@
 }
 
 #character p {
-    font-size:150px;
+    font-size:300px;
 }
 
 #countryList {

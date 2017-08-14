@@ -25,5 +25,26 @@ namespace WebApplication.Services
 
             return new AccountABSurveysViewModel { Surveys = surveys }; 
         }
+
+        public AccountIndexViewModel GetIndexViewModel(string userId)
+        {
+            var roles = (from ur in db.Roles
+                         select ur).ToList();
+
+            List<string> userRoles = new List<string>();
+
+            foreach (var ur in roles)
+            {
+                foreach (var user in ur.Users)
+                {
+                    if (user.UserId == userId)
+                    {
+                        userRoles.Add(ur.Name);
+                    }
+                }
+            }
+
+            return new AccountIndexViewModel { UserRoles = userRoles };
+        }
     }
 }

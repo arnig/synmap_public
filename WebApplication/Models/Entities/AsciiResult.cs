@@ -22,10 +22,10 @@ namespace WebApplication.Models.Entities
         public int Ascii { get; set; }
         [Column(Order = 2), Key]
         public int AlphabetResultId { get; set; }
-        public int R { get; set; }
-        public int G { get; set; }
-        public int B { get; set; }
-        public int A { get; set; }
+        public Nullable<int> R { get; set; }
+        public Nullable<int> G { get; set; }
+        public Nullable<int> B { get; set; }
+        public Nullable<int> A { get; set; }
     
         public virtual AlphabetResult AlphabetResult { get; set; }
     }
