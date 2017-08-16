@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using WebApplication.Models;
+using System.Net.Mail;
 
 namespace WebApplication
 {
@@ -19,7 +20,14 @@ namespace WebApplication
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            // return Task.FromResult(0);
+
+            SmtpClient client = new SmtpClient();
+            var mail = new MailMessage("Synesthesia Web synwebinfo@gmail.com", message.Destination);
+            mail.IsBodyHtml = true;
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            return client.SendMailAsync(mail);
         }
     }
 
