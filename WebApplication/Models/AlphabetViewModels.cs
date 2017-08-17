@@ -19,6 +19,13 @@ namespace WebApplication.Models
         public List<int> Ascii { get; set; }
     }
 
+    public class SurveyInfoViewModel
+    {
+        public string AnonCode { get; set; }
+        public string Email { get; set; }
+        public DateTime AnonAge { get; set; }
+    }
+
     public class AlphabetResultViewModel
     {
         public List<AsciiResults> results { get; set; }
@@ -75,13 +82,5 @@ namespace WebApplication.Models
         public string BackgroundG { get; set; }
         public string BackgroundB { get; set; }
         public string TimeStamp { get; set; }
-
-        /*
-user1;icelandic2;ascichar1;attempt1;NaN;NaN;NaN;bkr255;bkg255;bkb255;timestamp
-
-user1;icelandic2;ascichar1;attempt1;r144;b245;g023;bkr255;bkg255;bkb255;timestamp
-
-user1;icelandic2;ascichar1;totalattempts;v;r_avg;g_avg;b_avg;timestamp;
-         */
     }
 }

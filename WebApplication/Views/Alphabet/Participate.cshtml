@@ -5,9 +5,36 @@
 
 <h2>@Model.Alphabet.Description</h2>
 
+<div id="alphabetIdentification">
+    <h3>Type in provided information</h3> 
 
-<div id="alphabetSurvey" class="container-fluid" style="background-color:@Model.Alphabet.BackgroundARGB">
-    <div class="row">
+    <form>
+        <div class="form-group">
+            <label accesskey="C" for="Code">Identification code</label>
+            <input type="text" name="Code" id="Code" title="Type your code" class="form-control" />
+            <br />
+            <br />
+
+            <label accesskey="A" for="Age">Year of birth</label>
+            <input type="date" name="Age" id="Age" class="form-control"/>
+            <br />
+            <br />
+
+            <label accesskey="E" for="Email">Send results to</label>
+            <input type="email" name="Email" id="Email" class="form-control" autocomplete="off"/>
+            <br />
+            <br />
+
+        </div>
+    </form>
+
+    <button class="btn btn-success" id="btnIdentification">Submit</button>
+    <button class="btn btn-warning" id="btnIdentificationSkip">Skip</button>
+</div>
+
+<div id="alphabetSurvey" hidden="hidden">
+    <div id="alphabetSurveyContainer" class="container-fluid" style="background-color:@Model.Alphabet.BackgroundARGB" >
+        <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div id="colorPicker">
                     <div class="wheel" id="colorWheel">
@@ -17,18 +44,18 @@
                     <script src="~/Scripts/AlphabetSurvey.js"></script>
                 </div>
             </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="character">
-            <div id="char">
-                @foreach(var c in Model.Ascii)
-                {
-                    <p title="@c" hidden="hidden" style="font-family:@Model.Alphabet.Font">&#@c;</p>
-                }
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="character">
+                <div id="char">
+                    @foreach (var c in Model.Ascii)
+                    {
+                        <p title="@c" hidden="hidden" style="font-family:@Model.Alphabet.Font">&#@c;</p>
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="center">
-    <button class="btn btn-success" id="btnPostResult">Submit color</button>
-    <button class="btn btn-danger" id="btnNoColor">No color</button>
+    <div class="center">
+        <button class="btn btn-success" id="btnPostResult">Submit color</button>
+        <button class="btn btn-danger" id="btnNoColor">No color</button>
+    </div>
 </div>

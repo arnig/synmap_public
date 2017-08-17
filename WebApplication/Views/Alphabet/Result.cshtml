@@ -3,7 +3,14 @@
     ViewBag.Title = "Result";
 }
 
-<h2 class="center">Score : @Model.score</h2>
+@if (Model.score < 0)
+{
+    <h2 class="center">Insufficient information gathered</h2>
+}
+else
+{
+    <h2 class="center">Score : @Model.score</h2>
+}
 
 <div class="container-fluid center" id="abResultChart">
 

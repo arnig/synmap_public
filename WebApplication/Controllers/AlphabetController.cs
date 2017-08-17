@@ -41,9 +41,19 @@ namespace WebApplication.Controllers
 
             return View(alphabet);
         }
-        
+
         [HttpPost]
-        public ActionResult AlphabetResult(AlphabetResultViewModel viewModel)
+        public void SurveyInformation(SurveyInfoViewModel viewModel)
+        {
+            string currentSession = this.Session.SessionID;
+
+            int surveyId = service.GetLatestSurveyBySession(currentSession);
+
+            service.AddAnonIdentity(viewModel, surveyId);
+        }
+
+        [HttpPost]
+        public void AlphabetResult(AlphabetResultViewModel viewModel)
         {
             string currentSession = this.Session.SessionID;
 
@@ -56,8 +66,6 @@ namespace WebApplication.Controllers
             {
                 service.FinishSurveyByAlphabetResult(abResultId);
             }
-
-            return RedirectToAction("Index", "Alphabet");
         }
 
         public ActionResult Result(int? surveyId)

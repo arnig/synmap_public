@@ -28,6 +28,9 @@ namespace WebApplication.Models.Entities
         public string SessionId { get; set; }
         public DateTime DateStarted { get; set; }
         public Nullable<DateTime> DateFinished { get; set; }
+        public string RecipientAddress { get; set; }
+        public string AnonCode { get; set; }
+        public Nullable<DateTime> AnonAge { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlphabetResult> AlphabetResults { get; set; }
