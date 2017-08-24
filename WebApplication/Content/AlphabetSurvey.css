@@ -26,6 +26,14 @@
     padding-top: 20px;
 }
 
+#countryList div {
+    height: 200px;
+}
+
+#btnABListAdd {
+    margin-top:50px;
+}
+
 #countryList img {
     width: inherit;
 }

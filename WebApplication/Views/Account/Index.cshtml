@@ -16,9 +16,7 @@
 
 <h3>My Surveys</h3>
 <div id="profileSurveys">
-    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Alphabets</a>
-    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Graphemes</a>
-    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm">Other</a>
+    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm"><p class="glyphicon glyphicon-eye-open"> </p> View surveys</a>
 </div>
 
 @if (Model.UserRoles.Contains("Admin"))
@@ -28,7 +26,7 @@
     <h3>Downloads</h3>
     <div id="downloads">
         <div id="abDownloads">
-            <button class="btn btn-success btn-sm" id="btnDownloadAB">Download CSV</button>
+            <button class="btn btn-success btn-sm" id="btnDownloadAB"><p class="glyphicon glyphicon-download"> </p> Download CSV</button>
         </div>
     </div>
 }

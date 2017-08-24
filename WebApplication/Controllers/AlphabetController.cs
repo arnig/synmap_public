@@ -53,7 +53,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public void AlphabetResult(AlphabetResultViewModel viewModel)
+        public bool AlphabetResult(AlphabetResultViewModel viewModel)
         {
             string currentSession = this.Session.SessionID;
 
@@ -61,11 +61,9 @@ namespace WebApplication.Controllers
 
             service.PostAsciiResults(viewModel, abResultId);
 
-            //TODO: Make attemptNumber global or configurable
-            if (viewModel.attemptNumber > 2)
-            {
-                service.FinishSurveyByAlphabetResult(abResultId);
-            }
+            service.FinishSurveyByAlphabetResult(abResultId);
+
+            return true;
         }
 
         public ActionResult Result(int? surveyId)

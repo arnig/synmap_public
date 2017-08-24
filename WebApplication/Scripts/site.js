@@ -36,10 +36,10 @@
 
                 var pair;
                 if (noColor) {
-                    pair = { Ascii: ascii, R: null, G: null, B: null };
+                    pair = { Ascii: ascii, AttemptNumber: attemptNumber, R: null, G: null, B: null };
                 }
                 else {
-                    pair = { Ascii: ascii, R: colorValue.r, G: colorValue.g, B: colorValue.b };
+                    pair = { Ascii: ascii, AttemptNumber: attemptNumber, R: colorValue.r, G: colorValue.g, B: colorValue.b };
                 }
                 
                 keyValues.push(pair);
@@ -59,21 +59,27 @@
         
         // Reached the end of alphabet
         if (charIndex === htmlValues.length - 1) {
-            $.ajax({
-                url: '/Alphabet/AlphabetResult',
-                data: {
-                    'viewModel': { 'results': keyValues, 'attemptNumber': attemptNumber }
-                },
-                method: 'POST',
-                success: function (responseData) {
-                    keyValues.length = 0;
-                }
-            });
-
+            
             // Navigate to result page after 3 attempts
             if (++attemptNumber > 3) {
                 $(this).parent().remove();
-                window.location = '../Result';
+
+                $.ajax({
+                    url: '/Alphabet/AlphabetResult',
+                    data: {
+                        'viewModel': { 'results': keyValues }
+                    },
+                    method: 'POST',
+                    success: function (responseData) {
+                        //TODO: wait for response before routing to result page
+                        window.location = '../Result';
+                    },
+                    error: function (responseData) {
+                        //Deal with errors if any
+                        window.location = '../..';
+                    }
+                });
+
             }
             else {
                 InitiateCharList(htmlValues);

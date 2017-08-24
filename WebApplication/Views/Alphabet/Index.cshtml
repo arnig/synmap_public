@@ -5,7 +5,7 @@
 
 <div class="container-fluid center">
 
-    <h2>Nordic Alphabets</h2>
+    <h2>Alphabets</h2>
 
     <div class="row" id="countryList">
         @foreach (var alphabet in Model.Alphabets)
@@ -15,7 +15,7 @@
                 imgPath = "/Images/Flags/noflag.svg";
             
 
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-12">
                 @* TODO: Scale images properly *@
                 <img src="@imgPath" class="flagImage" alt="Flag image" />
                 <h3>@alphabet.Description</h3>
@@ -26,43 +26,14 @@
                 }
             </div>
         }
-    </div>
-</div>
-
-<hr />
-
-<div class="container-fluid center">
-
-    <h2>Asian Alphabets</h2>
-
-    <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <h3>Danish</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Faroese</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Finnish</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Greenlandic</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Icelandic</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Norwegian</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <h3>Swedish</h3>
-            <p><a class="btn btn-default" href="@Url.Action("Index","Alphabet")">Click here &raquo;</a></p>
-        </div>
+        @if (Model.UserRoles.Contains("Admin"))
+        {
+            <div class="col-md-3 col-sm-12" >
+                <div id="btnABListAdd">
+                    <h3>New Alphabet</h3>
+                    <a class="btn btn-lg btn-primary" href="@Url.Action("Create","Alphabet")">Create</a>
+                </div>
+            </div>
+        }
     </div>
 </div>

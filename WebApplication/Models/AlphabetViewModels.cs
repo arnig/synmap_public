@@ -28,18 +28,8 @@ namespace WebApplication.Models
 
     public class AlphabetResultViewModel
     {
-        public List<AsciiResults> results { get; set; }
+        public List<AsciiResult> results { get; set; }
         public string userId { get; set; }
-        public int attemptNumber { get; set; }
-    }
-
-    public class AsciiResults
-    {
-        public int Ascii { get; set; }
-        public Nullable<int> R { get; set; }
-        public Nullable<int> G { get; set; }
-        public Nullable<int> B { get; set; }
-        public Nullable<int> A { get; set; }
     }
 
     public class SurveyResultViewModel
