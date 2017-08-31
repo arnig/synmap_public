@@ -91,6 +91,7 @@
     $('#btnIdentificationSkip').on('click', function () {
         $('#alphabetIdentification').attr('hidden', true);
         $('#alphabetSurvey').attr('hidden', false);
+        $('#btnNoColor').click(); //TODO: Find alternative
     });
 
     $('#btnIdentification').on('click', function () {
@@ -112,6 +113,7 @@
 
         $('#alphabetIdentification').attr('hidden', true);
         $('#alphabetSurvey').attr('hidden', false);
+        $('#btnNoColor').click(); //TODO: Find alternative
     });
 
     // Listen to when participant submits his color of choice

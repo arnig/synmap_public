@@ -46,7 +46,32 @@ namespace WebApplication.Controllers
             return View(vm);
         }
 
-#region Built in ASP.NET functions
+        //
+        // GET: /Account/Edit
+        [Authorize]
+        public ActionResult Edit()
+        {
+            AccountEditViewModel vm = service.GetEditViewModel(User.Identity.GetUserId());
+
+            return View(vm);
+        }
+
+        //
+        // POST: /Account/Edit
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(AccountEditViewModel model)
+        {
+            if (!service.Edit(User.Identity.GetUserId(), model))
+            {
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        #region Built in ASP.NET functions
         public ApplicationSignInManager SignInManager
         {
             get

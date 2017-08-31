@@ -28,23 +28,54 @@ namespace WebApplication.Services
 
         public AccountIndexViewModel GetIndexViewModel(string userId)
         {
+            var user = (from u in db.Users
+                               where u.Id == userId
+                               select u).SingleOrDefault();
+
             var roles = (from ur in db.Roles
                          select ur).ToList();
+
+            var surveys = (from sv in db.Surveys
+                           where sv.DateFinished.HasValue
+                           orderby sv.DateFinished descending
+                           select sv).Take(5).ToList();
 
             List<string> userRoles = new List<string>();
 
             foreach (var ur in roles)
             {
-                foreach (var user in ur.Users)
+                foreach (var u in ur.Users)
                 {
-                    if (user.UserId == userId)
+                    if (u.UserId == userId)
                     {
                         userRoles.Add(ur.Name);
                     }
                 }
             }
 
-            return new AccountIndexViewModel { UserRoles = userRoles };
+            return new AccountIndexViewModel { User = user, UserRoles = userRoles, Surveys = surveys };
+        }
+
+        public AccountEditViewModel GetEditViewModel(string userId)
+        {
+            var user = (from u in db.Users
+                        where u.Id == userId
+                        select u).SingleOrDefault();
+
+            return new AccountEditViewModel { UserName = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber };
+        }
+
+        public bool Edit(string userId, AccountEditViewModel model)
+        {
+            var user = (from u in db.Users
+                        where u.Id == userId
+                        select u).SingleOrDefault();
+
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+
+            return Convert.ToBoolean(db.SaveChanges());
         }
     }
 }

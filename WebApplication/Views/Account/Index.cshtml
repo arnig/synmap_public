@@ -5,18 +5,45 @@
 
 <h2>My profile</h2>
 
-<h3>Account information</h3>
-<p>Name</p>
-<p>Email</p>
-<p>What I eat for breakfast</p>
-<p>...</p>
-<button class="btn-warning">Edit</button>
+<h3>Account information @*<a href="@Url.Action("Edit","Account")" class="btn btn-warning btn-sm">Edit</a>*@</h3>
+<div class="SurveyTable">
+    <table>
+        <tr>
+            <td>Email</td>
+            <td>@Model.User.Email</td>
+        </tr>
+        @if (Model.User.PhoneNumber != null)
+        {
+            <tr>
+                <td>Phone number</td>
+                <td>@Model.User.PhoneNumber</td>
+            </tr>
+        }
+    </table>
+</div>
 
 <hr />
 
 <h3>My Surveys</h3>
 <div id="profileSurveys">
-    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm"><p class="glyphicon glyphicon-eye-open"> </p> View surveys</a>
+    <div class="SurveyTable">
+        <table>
+            <tr>
+                <th>Language</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+            @foreach (var survey in Model.Surveys)
+            {
+                <tr>
+                    <td>Icelandic</td>
+                    <td>@survey.DateFinished</td>
+                    <td><a href="@Url.Action("Result","Alphabet", new { surveyId = survey.Id })" class="btn btn-success btn-sm">Open</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm"><p class="glyphicon glyphicon-eye-open"> </p> View All</a>
 </div>
 
 @if (Model.UserRoles.Contains("Admin"))

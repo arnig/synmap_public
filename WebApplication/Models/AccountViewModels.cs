@@ -9,9 +9,29 @@ namespace WebApplication.Models
         public List<Survey> Surveys { get; set; }
     }
 
+    public class AccountEditViewModel
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Name")]
+        [StringLength(100, ErrorMessage = "Please enter a valid name", MinimumLength = 2)]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+    }
+
     public class AccountIndexViewModel
     {
+        public ApplicationUser User { get; set; }
         public List<string> UserRoles { get; set; }
+        public List<Survey> Surveys { get; set; }
     }
 
     public class ExternalLoginConfirmationViewModel

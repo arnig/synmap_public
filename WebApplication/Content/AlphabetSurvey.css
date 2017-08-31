@@ -74,17 +74,17 @@
     font-size: 100px;
 }
 
-#AlphabetSurveyList table {
+.SurveyTable table {
     width: 100%;
     border-collapse: collapse;
 }
 
-#AlphabetSurveyList td, th {
+.SurveyTable td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
 
-#AlphabetSurveyList tr:nth-child(even) {
+.SurveyTable tr:nth-child(even) {
     background-color: #dddddd;
 }
