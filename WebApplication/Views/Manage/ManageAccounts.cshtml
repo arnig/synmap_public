@@ -1,0 +1,32 @@
+﻿@model WebApplication.Models.ManageAccountsViewModel
+@{
+    ViewBag.Title = "Manage Admins";
+}
+
+<h2>Manage Admins</h2>
+<div id="accountList">
+    <div class="SurveyTable">
+        <table>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        @user.User.Email
+                    </td>
+                    @if (user.Roles.Contains("Admin"))
+                    {
+                        <td>
+                            <a class="btn btn-danger btn-sm btnAdminRevoke" title="@user.User.Email">Revoke</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a class="btn btn-success btn-sm btnAdminPromote" title="@user.User.Email">Promote</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>

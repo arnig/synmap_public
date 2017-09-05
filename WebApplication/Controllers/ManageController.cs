@@ -7,12 +7,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication.Models;
+using WebApplication.Services;
 
 namespace WebApplication.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private ManageService service = new ManageService();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -242,6 +245,29 @@ namespace WebApplication.Controllers
             }
             AddErrors(result);
             return View(model);
+        }
+
+        //
+        // GET: /Manage/ManageAccounts
+        public ActionResult ManageAccounts()
+        {
+            ManageAccountsViewModel vm = service.GetManageAccountsViewModel(User.Identity.GetUserId());
+
+            return View(vm);
+        }
+
+        //TODO: Make Async
+        [HttpPost]
+        public bool RevokeAdmin(string user)
+        {
+            return service.RevokeAdmin(user);
+        }
+
+        //TODO: Make Async
+        [HttpPost]
+        public bool PromoteAdmin(string user)
+        {
+            return service.PromoteAdmin(user);
         }
 
         //

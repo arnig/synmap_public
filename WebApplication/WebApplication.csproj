@@ -263,6 +263,7 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AlphabetService.cs" />
     <Compile Include="Services\HomeService.cs" />
+    <Compile Include="Services\ManageService.cs" />
     <Compile Include="Services\SurveyService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -367,6 +368,7 @@
     <Content Include="Views\Alphabet\Create.cshtml" />
     <Content Include="Views\Alphabet\Edit.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Manage\ManageAccounts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

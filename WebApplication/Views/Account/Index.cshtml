@@ -3,9 +3,15 @@
     ViewBag.Title = "Profile";
 }
 
-<h2>My profile</h2>
+<h2>
+    My profile 
+    @if(Model.UserRoles.Contains("Admin"))
+    {
+        <a href="@Url.Action("ManageAccounts","Manage")" class="btn btn-primary pull-right"> Manage Admins</a>
+    }
+</h2>
 
-<h3>Account information @*<a href="@Url.Action("Edit","Account")" class="btn btn-warning btn-sm">Edit</a>*@</h3>
+<h3>Account information</h3>
 <div class="SurveyTable">
     <table>
         <tr>
@@ -21,6 +27,44 @@
         }
     </table>
 </div>
+
+@if (Model.UserRoles.Contains("Admin"))
+{
+    <hr />
+
+    <h3>Downloads</h3>
+    <div id="downloads">
+        <div id="abDownloads" class="SurveyTable">
+            <table>
+                    <tr>
+                        <th>
+                            Start Date
+                        </th>
+                        <th>
+                            End Date
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                                <input type="date" name="DateStart" value="@Convert.ToDateTime(DateTime.Today.AddDays(-1)).ToString("yyyy-MM-dd")" id="downloadDateStart" />
+
+                        </td>
+                        <td>
+                                <input type="date" name="DateEnd" value="@Convert.ToDateTime(DateTime.Today).ToString("yyyy-MM-dd")" id="downloadDateEnd" />
+                        </td>
+                        <td>
+
+                            <button class="btn btn-success btn-sm" id="btnDownloadAB"><p class="glyphicon glyphicon-download"> </p> Download CSV</button>
+                        </td>
+                    </tr>
+            </table>
+
+        </div>
+    </div>
+}
 
 <hr />
 
@@ -45,15 +89,3 @@
     </div>
     <a href="@Url.Action("AlphabetSurveys","Account")" class="btn btn-success btn-sm"><p class="glyphicon glyphicon-eye-open"> </p> View All</a>
 </div>
-
-@if (Model.UserRoles.Contains("Admin"))
-{
-    <hr />
-
-    <h3>Downloads</h3>
-    <div id="downloads">
-        <div id="abDownloads">
-            <button class="btn btn-success btn-sm" id="btnDownloadAB"><p class="glyphicon glyphicon-download"> </p> Download CSV</button>
-        </div>
-    </div>
-}

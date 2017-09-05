@@ -83,4 +83,15 @@ namespace WebApplication.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
+    public class ManageAccountsViewModel
+    {
+        public List<ManageAccount> Users { get; set; }
+    }
+
+    public class ManageAccount
+    {
+        public ApplicationUser User { get; set; }
+        public List<string> Roles { get; set; }
+    }
 }

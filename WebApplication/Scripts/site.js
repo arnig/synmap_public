@@ -27,7 +27,7 @@
 
             return;
         }
-        
+
         $.each(htmlValues, function (index, value) {
 
             if (index === charIndex) {
@@ -41,7 +41,7 @@
                 else {
                     pair = { Ascii: ascii, AttemptNumber: attemptNumber, R: colorValue.r, G: colorValue.g, B: colorValue.b };
                 }
-                
+
                 keyValues.push(pair);
 
                 //Randomize color value
@@ -56,10 +56,10 @@
                 $(this).attr('hidden', false);
             }
         });
-        
+
         // Reached the end of alphabet
         if (charIndex === htmlValues.length - 1) {
-            
+
             // Navigate to result page after 3 attempts
             if (++attemptNumber > 3) {
                 $(this).parent().remove();
@@ -85,7 +85,7 @@
                 InitiateCharList(htmlValues);
             }
         }
-        
+
     });
 
     $('#btnIdentificationSkip').on('click', function () {
@@ -102,7 +102,7 @@
                 'viewModel': {
                     'AnonCode': $('#Code').val(),
                     'Email': $('#Email').val(),
-                    'AnonAge': $('#Age').val() 
+                    'AnonAge': $('#Age').val()
                 }
             },
             method: 'POST',
@@ -118,17 +118,21 @@
 
     // Listen to when participant submits his color of choice
     $('#btnDownloadAB').on('click', function () {
+        var dateStart = $('#downloadDateStart').val();
+        var dateEnd = $('#downloadDateEnd').val();
+
         $.ajax({
-            url: '/Alphabet/DownloadSingle',
+            url: '/Alphabet/Download',
             data: {
-                'id': 1
+                'start': dateStart,
+                'end': dateEnd
             },
             method: 'POST',
             success: function (responseData) {
                 var parsedData = JSON.parse(responseData);
                 var jsonObject = JSON.stringify(parsedData);
                 var csv = ConvertToCSV(jsonObject);
-                
+
                 a = document.createElement('a');
                 a.download = "AlphabetResults.csv";
                 a.href = 'data:text/csv;charset=utf-8,' + escape(csv); //Actual content
@@ -136,6 +140,49 @@
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
+            }
+        });
+    });
+
+    $('.btnAdminPromote').on('click', function () {
+        var user = $(this);
+
+        $.ajax({
+            url: '/Manage/PromoteAdmin',
+            data: {
+                'user': user.attr('title')
+            },
+            method: 'POST',
+            success: function (responseData) {
+                if (responseData)
+                {
+                    user.removeClass('btn-success');
+                    user.removeClass('btnAdminPromote');
+                    user.addClass('btn-danger');
+                    user.addClass('btnAdminRevoke');
+                    user.text('Revoke');
+                }
+            }
+        });
+    });
+
+    $('.btnAdminRevoke').on('click', function () {
+        var user = $(this);
+
+        $.ajax({
+            url: '/Manage/RevokeAdmin',
+            data: {
+                'user': user.attr('title')
+            },
+            method: 'POST',
+            success: function (responseData) {
+                if (responseData) {
+                    user.removeClass('btn-danger');
+                    user.removeClass('btnAdminRevoke');
+                    user.addClass('btn-success');
+                    user.addClass('btnAdminPromote');
+                    user.text('Promote');
+                }
             }
         });
     });

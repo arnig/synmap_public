@@ -325,12 +325,14 @@ namespace WebApplication.Services
             };
         }
 
-        public List<DownloadViewModel> GetCompletedSurveys()
+        public List<DownloadViewModel> GetCompletedSurveys(DateTime start, DateTime end)
         {
             List<DownloadViewModel> viewModel = new List<DownloadViewModel>();
 
             var asciiResults = (from sv in db.Surveys
                            where sv.DateFinished.HasValue
+                           && sv.DateFinished >= start
+                           && sv.DateFinished <= end
                            join abr in db.AlphabetResults
                            on sv.Id equals abr.SurveyId
                            join asr in db.AsciiResults

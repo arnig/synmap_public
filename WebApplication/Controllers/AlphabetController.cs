@@ -167,9 +167,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public String DownloadSingle(int? id)
+        public String Download(DateTime start, DateTime end)
         {
-            var surveys = service.GetCompletedSurveys();
+            var surveys = service.GetCompletedSurveys(start, end);
 
             return surveys.ToJSON();
         }
