@@ -6,7 +6,13 @@ namespace WebApplication.Models
 {
     public class AccountABSurveysViewModel
     {
-        public List<Survey> Surveys { get; set; }
+        public List<AccountABSurvey> Surveys { get; set; }
+    }
+
+    public class AccountABSurvey
+    {
+        public Survey Survey { get; set; }
+        public string Language { get; set; }
     }
 
     public class AccountEditViewModel
@@ -31,7 +37,7 @@ namespace WebApplication.Models
     {
         public ApplicationUser User { get; set; }
         public List<string> UserRoles { get; set; }
-        public List<Survey> Surveys { get; set; }
+        public List<AccountABSurvey> Surveys { get; set; }
     }
 
     public class ExternalLoginConfirmationViewModel

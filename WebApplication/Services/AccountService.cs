@@ -18,12 +18,25 @@ namespace WebApplication.Services
 
         public AccountABSurveysViewModel GetSurveysByUserId(string userId)
         {
+            List<AccountABSurvey> abSurveys = new List<AccountABSurvey>();
+
             List<Survey> surveys = (from sv in db.Surveys
                                     where (sv.UserId == userId) && (sv.DateFinished != null) 
                                     orderby sv.DateFinished ascending
                                     select sv).ToList();
 
-            return new AccountABSurveysViewModel { Surveys = surveys }; 
+            foreach (var survey in surveys)
+            {
+                var alphabet = (from a in db.AlphabetResults
+                           where a.SurveyId == survey.Id
+                           join ab in db.Alphabets
+                           on a.AlphabetId equals ab.Id
+                           select ab).SingleOrDefault();
+
+                abSurveys.Add(new AccountABSurvey { Survey = survey, Language = alphabet.Description });
+            }
+
+            return new AccountABSurveysViewModel { Surveys = abSurveys }; 
         }
 
         public AccountIndexViewModel GetIndexViewModel(string userId)
@@ -35,10 +48,7 @@ namespace WebApplication.Services
             var roles = (from ur in db.Roles
                          select ur).ToList();
 
-            var surveys = (from sv in db.Surveys
-                           where sv.DateFinished.HasValue
-                           orderby sv.DateFinished descending
-                           select sv).Take(5).ToList();
+            var surveys = GetSurveysByUserId(userId).Surveys.OrderByDescending(x => x.Survey.DateFinished).Take(5).ToList(); //TODO: Change function to return abSurveys
 
             List<string> userRoles = new List<string>();
 

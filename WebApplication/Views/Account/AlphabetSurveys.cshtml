@@ -15,9 +15,9 @@
         @foreach (var survey in Model.Surveys)
         {
             <tr>
-                <td>Icelandic</td>
-                <td>@survey.DateFinished</td>
-                <td><a href="@Url.Action("Result","Alphabet", new { surveyId = survey.Id })" class="btn btn-success btn-sm">Open</a></td>
+                <td>@survey.Language</td>
+                <td>@survey.Survey.DateFinished</td>
+                <td><a href="@Url.Action("Result","Alphabet", new { surveyId = survey.Survey.Id })" class="btn btn-success btn-sm">Open</a></td>
             </tr>
         }
     </table>
