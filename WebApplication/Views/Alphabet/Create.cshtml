@@ -3,48 +3,80 @@
     ViewBag.Title = "Create Alphabet";
 }
 
-<div class="boxTitle">
-    <h1>@ViewBag.Title</h1>
-</div>
-<div class="boxText">
-    @using (Html.BeginForm("Create", "Alphabet", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-sm-5">
-                @Html.TextBoxFor(m => m.Nation, new { @class = "form-control", placeholder = "Nation (ICE, DEN, ENG...)" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-5">
-                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Language name" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-5">
-                @Html.TextBoxFor(m => m.Characters, new { @class = "form-control", placeholder = "Characters" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-5">
-                @Html.TextBoxFor(m => m.BackgroundColor, new { @class = "form-control", type = "color", value = "#ffffff"})
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-5">
-                @Html.DropDownListFor(m => m.Font, Model.AvailableFonts, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-5">
-                <div class="btn-group pull-right">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                    <input type="button" value="Cancel" class="btn btn-default" onclick="history.back()" />
+<div class="container-fluid">
+    <div class="col-lg-6 col-md-12">
+        <h2>Details</h2>
+        <div class="boxText" id="abDetails">
+            @using (Html.BeginForm("Create", "Alphabet", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Nation, new { @class = "form-control", placeholder = "Nation (ICE, DEN, ENG...)" })
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Language name" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Characters, new { @class = "form-control", placeholder = "Characters" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.BackgroundColor, new { @class = "form-control", type = "color", value = "#ffffff" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        @Html.DropDownListFor(m => m.Font, Model.AvailableFonts, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        @Html.DropDownListFor(m => m.Flag, Model.AvailableFlags, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <div class="btn-group pull-right">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                            <input type="button" value="Cancel" class="btn btn-default" onclick="history.back()" />
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
+    <div class="col-lg-3 col-md-12">
+        <h2>Style</h2>
+        <div id="abStyle" style="background-color:@Model.BackgroundColor">
+            <p style="font-family:@Model.Font;">A</p>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12">
+
+        <h2>Image</h2>
+        <div id="flagImage">
+            @foreach (var flag in Model.AvailableFlags)
+            {
+                var imgPath = "/Images/Flags/" + flag.Value + ".svg";
+
+                if (Int32.Parse(flag.Value) == 0)
+                {
+                    <img src=@imgPath title="@flag.Value" style="max-width:300px;" />
+                }
+                else
+                {
+                    <img src=@imgPath title="@flag.Value" style="max-width:300px;" hidden="hidden" />
+                }
+            }
+        </div>
+    </div>
 </div>

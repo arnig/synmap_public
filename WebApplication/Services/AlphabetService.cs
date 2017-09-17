@@ -168,6 +168,11 @@ namespace WebApplication.Services
             client.Send(mail);
         }
 
+        public bool Remove(int id)
+        {
+            return true;
+        }
+
         private List<DownloadViewModel> getResultEmail(int id)
         {
             List<DownloadViewModel> result = new List<DownloadViewModel>();
@@ -219,6 +224,12 @@ namespace WebApplication.Services
         public void PopulateFonts(AlphabetCreateViewModel vm)
         {
             List<string> fontlist = new List<string>(new string[] { "Arial Black", "Lucida Console", "Times New Roman" });
+            List<int> flaglist = new List<int>(new int[] { });
+
+            for (int i = 0; i < 6; i++)//TODO: make constant somewhere
+            {
+                flaglist.Add(i);
+            }
 
             IEnumerable<SelectListItem> fonts = fontlist.Select(x => new SelectListItem
             {
@@ -226,7 +237,14 @@ namespace WebApplication.Services
                 Value = x
             });
 
+            IEnumerable<SelectListItem> flags = flaglist.Select(x => new SelectListItem
+            {
+                Text = "Flag " + (x + 1).ToString(),
+                Value = x.ToString()
+            });
+
             vm.AvailableFonts = fonts;
+            vm.AvailableFlags = flags;
         }
 
         public SurveyResultViewModel GetLatestAsciiResultsBySession(string sessionId)
@@ -377,12 +395,14 @@ namespace WebApplication.Services
                 || (editAlphabet.Description != oldAlphabet.Description)
                 || (editAlphabet.BackgroundColor != oldAlphabet.BackgroundARGB)
                 || (editAlphabet.Font != oldAlphabet.Font)
+                || (editAlphabet.Flag != oldAlphabet.Flag)
                 )
             {
                 oldAlphabet.Nation = editAlphabet.Nation;
                 oldAlphabet.Description = editAlphabet.Description;
                 oldAlphabet.BackgroundARGB = editAlphabet.BackgroundColor;
                 oldAlphabet.Font = editAlphabet.Font;
+                oldAlphabet.Flag = editAlphabet.Flag;
 
                 if (!Convert.ToBoolean(db.SaveChanges()))
                 {

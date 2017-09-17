@@ -43,12 +43,15 @@ namespace WebApplication.Models
 
     public class AlphabetCreateViewModel
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public string Nation { get; set; }
         public string Characters { get; set; }
         public string BackgroundColor { get; set; }
         public string Font { get; set; }
+        public int Flag { get; set; }
         public IEnumerable<SelectListItem> AvailableFonts { get; set; }
+        public IEnumerable<SelectListItem> AvailableFlags { get; set; }
     }
 
     public class AlphabetParticipateViewModel

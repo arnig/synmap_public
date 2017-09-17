@@ -186,6 +186,41 @@
             }
         });
     });
+
+    //Dropdown lists
+    $('#abDetails select').change(function () {
+        var fieldId = $(this).attr('id');
+
+        if (fieldId === "Flag"){
+            var newFlag = $("#" + fieldId + " option:selected").val();
+
+            $('#flagImage img').each(function (index) {
+                
+                if (index === parseInt(newFlag)) {
+                    $(this).removeAttr('hidden');
+                }
+                else {
+                    $(this).attr('hidden', true);
+                }
+            });
+        }
+
+        if (fieldId === "Font") {
+            var newFont = $("#" + fieldId + " option:selected").val();
+
+            $('#abStyle p').css("font-family", newFont);
+        }
+    });
+
+    $('#abDetails input').change(function () {
+        var fieldId = $(this).attr('id');
+
+        if (fieldId === "BackgroundColor") {
+            var newRGB = $(this).val();
+
+            $('#abStyle').css("background-color", newRGB);
+        }
+    });
 });
 
 function InitiateCharList(htmlValues) {
@@ -234,4 +269,22 @@ function ConvertToCSV(objArray) {
     }
 
     return rows;
+}
+
+function removeAlphabet(id) {
+    $.ajax({
+        url: '/Alphabet/Remove',
+        data: {
+            'Id': id
+        },
+        method: 'POST',
+        success: function (success) {
+            if (success) {
+                window.location = '../..';
+            }
+            else {
+                console.log('There was an error handling this request.');
+            }
+        }
+    });
 }

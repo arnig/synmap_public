@@ -20,7 +20,7 @@
             </div>
             @foreach (var alphabet in Model.alphabets)
             {
-                var imgPath = "/Images/Flags/" + @alphabet.Id + ".svg";
+                var imgPath = "/Images/Flags/" + alphabet.Flag + ".svg";
 
                 <div class="col-md-3 col-sm-12">
                     <img src="@imgPath" class="flagImage"></img>

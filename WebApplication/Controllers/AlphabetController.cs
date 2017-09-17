@@ -136,11 +136,13 @@ namespace WebApplication.Controllers
 
             AlphabetCreateViewModel vm = new AlphabetCreateViewModel
             {
+                Id = id.Value,
                 Nation = alphabetViewModel.Alphabet.Nation,
                 Description = alphabetViewModel.Alphabet.Description,
                 Characters = characters,
                 BackgroundColor = alphabetViewModel.Alphabet.BackgroundARGB,
-                Font = alphabetViewModel.Alphabet.Font
+                Font = alphabetViewModel.Alphabet.Font,
+                Flag = alphabetViewModel.Alphabet.Flag
             };
 
             service.PopulateFonts(vm);
@@ -164,6 +166,12 @@ namespace WebApplication.Controllers
                 return RedirectToAction("Index");
             }
             return View("Index");
+        }
+
+        [HttpPost]
+        public bool Remove(int Id)
+        {
+            return service.Remove(Id);
         }
 
         [HttpPost]

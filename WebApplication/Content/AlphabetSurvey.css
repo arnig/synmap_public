@@ -1,4 +1,22 @@
-﻿#alphabetSurveyContainer {
+﻿#abStyle {
+    height:300px;
+    max-width:300px;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+}
+
+#abStyle p {
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#alphabetSurveyContainer {
     border-radius: 20px;
     padding: 20px;
 }
@@ -36,6 +54,7 @@
 
 #countryList img {
     width: inherit;
+    max-width: 100px;
 }
 
 #countryList h3 {

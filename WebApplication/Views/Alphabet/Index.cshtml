@@ -10,7 +10,7 @@
     <div class="row" id="countryList">
         @foreach (var alphabet in Model.Alphabets)
         {
-            var imgPath = "/Images/Flags/" + @alphabet.Id + ".svg";
+            var imgPath = "/Images/Flags/" + @alphabet.Flag + ".svg";
             if (!File.Exists(Server.MapPath("~/") + imgPath))
                 imgPath = "/Images/Flags/noflag.svg";
             
