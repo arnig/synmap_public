@@ -171,7 +171,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         public bool Remove(int Id)
         {
-            return service.Remove(Id);
+            return service.Archive(Id);
         }
 
         [HttpPost]

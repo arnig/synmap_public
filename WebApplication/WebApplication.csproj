@@ -281,6 +281,7 @@
     <Content Include="Images\Flags\4.svg" />
     <Content Include="Images\Flags\5.svg" />
     <Content Include="Images\Flags\0.svg" />
+    <Content Include="Images\Flags\6.svg" />
     <Content Include="Models\Entities\Entity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entity.edmx</DependentUpon>

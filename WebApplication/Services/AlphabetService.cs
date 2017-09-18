@@ -26,8 +26,9 @@ namespace WebApplication.Services
         public AlphabetIndexViewModel getAlphabets(string userId)
         {
             List<Alphabet> alphabetList = (from ab in db.Alphabets
+                                           where !ab.Archived
                                            orderby ab.Description.ToLower()
-                                select ab).ToList();
+                                           select ab).ToList();
 
             var roles = (from ur in db.Roles
                          select ur).ToList();
@@ -168,9 +169,15 @@ namespace WebApplication.Services
             client.Send(mail);
         }
 
-        public bool Remove(int id)
+        public bool Archive(int id)
         {
-            return true;
+            var alphabet = (from ab in db.Alphabets
+                            where ab.Id == id
+                            select ab).SingleOrDefault();
+
+            alphabet.Archived = true;
+
+            return Convert.ToBoolean(db.SaveChanges());
         }
 
         private List<DownloadViewModel> getResultEmail(int id)
@@ -226,7 +233,7 @@ namespace WebApplication.Services
             List<string> fontlist = new List<string>(new string[] { "Arial Black", "Lucida Console", "Times New Roman" });
             List<int> flaglist = new List<int>(new int[] { });
 
-            for (int i = 0; i < 6; i++)//TODO: make constant somewhere
+            for (int i = 0; i < 7; i++)//TODO: make constant somewhere
             {
                 flaglist.Add(i);
             }

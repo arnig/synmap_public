@@ -76,7 +76,7 @@
                     },
                     error: function (responseData) {
                         //Deal with errors if any
-                        window.location = '../..';
+                        window.location = '../Result';
                     }
                 });
 
@@ -280,7 +280,7 @@ function removeAlphabet(id) {
         method: 'POST',
         success: function (success) {
             if (success) {
-                window.location = '../..';
+                window.location = '../';
             }
             else {
                 console.log('There was an error handling this request.');

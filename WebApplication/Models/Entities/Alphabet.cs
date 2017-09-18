@@ -29,6 +29,7 @@ namespace WebApplication.Models.Entities
         public string BackgroundARGB { get; set; }
         public string Font { get; set; }
         public int Flag { get; set; }
+        public bool Archived { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlphabetResult> AlphabetResults { get; set; }

@@ -19,6 +19,7 @@ namespace WebApplication.Services
         public HomeViewModel GetViewModel()
         {
             List<Alphabet> alphabetList = (from ab in db.Alphabets
+                                           where !ab.Archived
                                            select ab).Take(3).ToList();
 
             return new HomeViewModel { alphabets = alphabetList };
