@@ -53,13 +53,9 @@ namespace WebApplication.Services
         {
             AlphabetParticipateViewModel vm = new AlphabetParticipateViewModel();
 
-            SurveyInfoViewModel info = new SurveyInfoViewModel() { AnonAge = DateTime.Now };
-
             vm.Alphabet = getAlphabetById(value);
 
             vm.Ascii = getAsciiByAlphabet(value);
-
-            vm.Info = info;
 
             return vm;
         }
