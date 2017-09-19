@@ -95,25 +95,55 @@
     });
 
     $('#btnIdentification').on('click', function () {
+        var validation = {
+            'code': true,
+            'email': true,
+            'age': true
+        };
 
-        $.ajax({
-            url: '/Alphabet/SurveyInformation',
-            data: {
-                'viewModel': {
-                    'AnonCode': $('#Code').val(),
-                    'Email': $('#Email').val(),
-                    'AnonAge': $('#Age').val()
+        validation.code = $('#Code').val().length > 0;
+        validation.age = $('#Age').val().length > 0;
+        validation.email = validateEmail($('#Email').val());
+
+        if (validation.code && validation.email && validation.age) {
+            $.ajax({
+                url: '/Alphabet/SurveyInformation',
+                data: {
+                    'viewModel': {
+                        'AnonCode': $('#Code').val(),
+                        'Email': $('#Email').val(),
+                        'AnonAge': $('#Age').val()
+                    }
+                },
+                method: 'POST',
+                success: function (responseData) {
+                    keyValues.length = 0;
                 }
-            },
-            method: 'POST',
-            success: function (responseData) {
-                keyValues.length = 0;
-            }
-        });
+            });
 
-        $('#alphabetIdentification').attr('hidden', true);
-        $('#alphabetSurvey').attr('hidden', false);
-        $('#btnNoColor').click(); //TODO: Find alternative
+            $('#alphabetIdentification').attr('hidden', true);
+            $('#alphabetSurvey').attr('hidden', false);
+            $('#btnNoColor').click(); //TODO: Find alternative
+        } else {
+            if (validation.code) {
+                $('#codeError').text("");
+            } else {
+                $('#codeError').text("Invalid Code");
+            }
+
+            if (validation.age) {
+                $('#ageError').text("");
+            } else {
+                $('#ageError').text("Pick a valid date");
+            }
+
+            if (validation.email) {
+                $('#emailError').text("");
+            } else {
+                $('#emailError').text("Invalid email address");
+            }
+        }
+        
     });
 
     // Listen to when participant submits his color of choice
@@ -288,3 +318,11 @@ function removeAlphabet(id) {
         }
     });
 }
+
+function validateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return (true);
+    }
+
+    return (false);
+}  
