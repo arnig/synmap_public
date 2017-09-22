@@ -375,6 +375,7 @@ namespace WebApplication.Services
                 viewModel.Add(new DownloadViewModel {
                     User = abr.UserId,
                     Survey = abr.SurveyId.ToString(),
+                    AnonIdentity = abr.Survey.AnonCode,
                     Language = abr.Alphabet.Nation,
                     AsciiCharacter = asr.Ascii.ToString(),
                     AttemptNumber = asr.AttemptNumber.ToString(),

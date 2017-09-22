@@ -102,7 +102,7 @@
         };
 
         validation.code = $('#Code').val().length > 0;
-        validation.age = $('#Age').val().length > 0;
+        validation.age = (1900 < $('#Age').val()) && ($('#Age').val() <= (new Date()).getFullYear());
         validation.email = validateEmail($('#Email').val());
 
         if (validation.code && validation.email && validation.age) {
@@ -112,7 +112,7 @@
                     'viewModel': {
                         'AnonCode': $('#Code').val(),
                         'Email': $('#Email').val(),
-                        'AnonAge': $('#Age').val()
+                        'AnonAge': new Date($('#Age').val())
                     }
                 },
                 method: 'POST',
@@ -134,7 +134,7 @@
             if (validation.age) {
                 $('#ageError').text("");
             } else {
-                $('#ageError').text("Pick a valid date");
+                $('#ageError').text("Pick a valid year");
             }
 
             if (validation.email) {

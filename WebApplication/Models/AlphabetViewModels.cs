@@ -65,6 +65,7 @@ namespace WebApplication.Models
     {
         public string User { get; set; }
         public string Survey { get; set; }
+        public string AnonIdentity { get; set; }
         public string Language { get; set; }
         public string AsciiCharacter { get; set; }
         public string AttemptNumber { get; set; }
