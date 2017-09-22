@@ -177,7 +177,10 @@ namespace WebApplication.Controllers
         [HttpPost]
         public String Download(DateTime start, DateTime end)
         {
-            var surveys = service.GetCompletedSurveys(start, end);
+            var surveys = service.GetCompletedSurveys(
+                new DateTime(start.Year, start.Month, start.Day, 0, 0, 0),
+                new DateTime(end.Year, end.Month, end.Day, 23, 59, 59)
+                );
 
             return surveys.ToJSON();
         }

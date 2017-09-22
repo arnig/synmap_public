@@ -112,12 +112,12 @@
                     'viewModel': {
                         'AnonCode': $('#Code').val(),
                         'Email': $('#Email').val(),
-                        'AnonAge': new Date($('#Age').val())
+                        'AnonAge': $('#Age').val()
                     }
                 },
                 method: 'POST',
                 success: function (responseData) {
-                    keyValues.length = 0;
+                    
                 }
             });
 

@@ -23,7 +23,7 @@ namespace WebApplication.Models
     {
         public string AnonCode { get; set; }
         public string Email { get; set; }
-        public DateTime AnonAge { get; set; }
+        public int AnonAge { get; set; }
     }
 
     public class AlphabetResultViewModel
@@ -66,6 +66,7 @@ namespace WebApplication.Models
         public string User { get; set; }
         public string Survey { get; set; }
         public string AnonIdentity { get; set; }
+        public string AnonYOB { get; set; }
         public string Language { get; set; }
         public string AsciiCharacter { get; set; }
         public string AttemptNumber { get; set; }

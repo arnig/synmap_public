@@ -68,7 +68,7 @@ namespace WebApplication.Services
 
             survey.AnonCode = viewModel.AnonCode;
             survey.RecipientAddress = viewModel.Email;
-            survey.AnonAge = viewModel.AnonAge;
+            survey.AnonAge = new DateTime(viewModel.AnonAge, 1, 1);
 
             return Convert.ToBoolean(db.SaveChanges());
         }
@@ -140,12 +140,13 @@ namespace WebApplication.Services
 
             string body = "A user has finished a survey, here are the results: <br /><br />";
 
-            body += "User;Survey;Language;AsciiCharacter;AttemptNumber;CharR;CharG;CharB;BackgroundR;BackgroundG;BackgroundB;TimeStamp<br />";
+            body += "User;YearOfBirth;Survey;Language;AsciiCharacter;AttemptNumber;CharR;CharG;CharB;BackgroundR;BackgroundG;BackgroundB;TimeStamp<br />";
 
             foreach (var result in results)
             {
                 body +=
                     survey.AnonCode + ";" +
+                    (survey.AnonAge.HasValue ? survey.AnonAge.Value.Year.ToString() : "") + ";" +
                     result.Survey + ";" +
                     result.Language + ";" +
                     result.AsciiCharacter + ";" +
@@ -375,7 +376,8 @@ namespace WebApplication.Services
                 viewModel.Add(new DownloadViewModel {
                     User = abr.UserId,
                     Survey = abr.SurveyId.ToString(),
-                    AnonIdentity = abr.Survey.AnonCode,
+                    AnonIdentity = string.IsNullOrEmpty(abr.Survey.AnonCode) ? "NaN" : abr.Survey.AnonCode,
+                    AnonYOB = abr.Survey.AnonAge.HasValue ? abr.Survey.AnonAge.Value.Year.ToString() : "NaN",
                     Language = abr.Alphabet.Nation,
                     AsciiCharacter = asr.Ascii.ToString(),
                     AttemptNumber = asr.AttemptNumber.ToString(),
