@@ -140,7 +140,7 @@ namespace WebApplication.Services
 
             string body = "A user has finished a survey, here are the results: <br /><br />";
 
-            body += "User;YearOfBirth;Survey;Language;AsciiCharacter;AttemptNumber;CharR;CharG;CharB;BackgroundR;BackgroundG;BackgroundB;TimeStamp<br />";
+            body += "User;YearOfBirth;Survey;Language;UnicodeCharacter;AttemptNumber;CharR;CharG;CharB;BackgroundR;BackgroundG;BackgroundB;TimeStamp<br />";
 
             foreach (var result in results)
             {
@@ -149,7 +149,7 @@ namespace WebApplication.Services
                     (survey.AnonAge.HasValue ? survey.AnonAge.Value.Year.ToString() : "") + ";" +
                     result.Survey + ";" +
                     result.Language + ";" +
-                    result.AsciiCharacter + ";" +
+                    result.UnicodeCharacter + ";" +
                     result.AttemptNumber + ";" +
                     result.CharR + ";" +
                     result.CharG + ";" +
@@ -206,7 +206,7 @@ namespace WebApplication.Services
                     User = ABResult.UserId,
                     Survey = ABResult.SurveyId.ToString(),
                     Language = ABResult.Alphabet.Nation,
-                    AsciiCharacter = asr.Ascii.ToString(),
+                    UnicodeCharacter = asr.Ascii.ToString(),
                     AttemptNumber = asr.AttemptNumber.ToString(),
                     CharR = asr.R.HasValue ? asr.R.ToString() : "NaN",
                     CharG = asr.G.HasValue ? asr.G.ToString() : "NaN",
@@ -379,7 +379,7 @@ namespace WebApplication.Services
                     AnonIdentity = string.IsNullOrEmpty(abr.Survey.AnonCode) ? "NaN" : abr.Survey.AnonCode,
                     AnonYOB = abr.Survey.AnonAge.HasValue ? abr.Survey.AnonAge.Value.Year.ToString() : "NaN",
                     Language = abr.Alphabet.Nation,
-                    AsciiCharacter = asr.Ascii.ToString(),
+                    UnicodeCharacter = asr.Ascii.ToString(),
                     AttemptNumber = asr.AttemptNumber.ToString(),
                     CharR = asr.R.HasValue ? asr.R.ToString() : "NaN",
                     CharG = asr.G.HasValue ? asr.G.ToString() : "NaN",

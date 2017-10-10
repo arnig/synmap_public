@@ -68,7 +68,7 @@ namespace WebApplication.Models
         public string AnonIdentity { get; set; }
         public string AnonYOB { get; set; }
         public string Language { get; set; }
-        public string AsciiCharacter { get; set; }
+        public string UnicodeCharacter { get; set; }
         public string AttemptNumber { get; set; }
         public string CharR { get; set; }
         public string CharG { get; set; }

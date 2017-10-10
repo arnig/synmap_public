@@ -46,7 +46,7 @@
 
                 //Randomize color value
                 var newH = Math.floor(Math.random() * 360);
-                var newS = Math.floor(Math.random() * 100);
+                var newS = Math.floor((Math.random() * 70) + 30);
 
                 colorWheel.color.hsv = { h: newH, s: newS, v: 100 };
 
