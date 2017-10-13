@@ -264,7 +264,11 @@ function InitiateCharList(htmlValues) {
         });
     });
 
+    var lastChar = charList.splice(charList.length - 1, 1);
+
     shuffle(charList);
+    
+    charList.splice(Math.floor(charList.length * Math.random()) + 1, 0, lastChar[0]);
 
     $.each(htmlValues, function (index, value) {
         $(this).attr('title', charList[index].title);
